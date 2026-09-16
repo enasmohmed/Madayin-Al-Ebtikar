@@ -15,7 +15,9 @@ env/
 
 # Django
 *.log
-
+db.sqlite3
+*.sqlite3
+media/
 staticfiles/
 
 # Environment
@@ -30,9 +32,8 @@ staticfiles/
 *.swo
 
 # Media archives / uploads (deploy to server separately, not via Git)
-media.zip
-*.zip
-!static/**/*.zip
+
+
 
 # Large media (keep on server)
 *.mp4
