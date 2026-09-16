@@ -7,3 +7,4 @@ django-modeltranslation==0.19.19
 pillow==12.1.0
 sqlparse==0.5.5
 typing_extensions==4.15.0
+whitenoise==6.11.0
