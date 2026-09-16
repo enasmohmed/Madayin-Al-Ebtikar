@@ -1,0 +1,98 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  4.20 skill css
+/*----------------------------------------*/
+
+.rs-skill{
+    &-one{
+        overflow-x: clip;
+        .rs-sec-descrip{
+            max-width: 402px;
+            font-size: 20px;
+            margin-inline-start: auto;
+            @media #{$md}{
+                font-size: 18px;
+                max-width: 100%;
+                margin-inline-start: unset;
+            }
+        }
+        .progress-title{
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--rs-title-primary);
+        }
+        .progress-number{
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--rs-title-primary);
+        }
+        .progress-top {
+	        margin-bottom: 15px;
+        }
+        .progress-bar{
+            background-color: var(--rs-theme-medium-yellow);
+        }
+        .rs-skill-progress-wrapper {
+            display: grid;
+            grid-template-columns: repeat(2,1fr);
+            gap: 40px 100px;
+            @media #{$laptop}{
+                gap: 40px 40px;
+            }
+            @media #{$mobile}{
+                grid-template-columns: repeat(1,1fr);
+                gap: 30px 30px;
+            }
+        }
+        .single-progress:not(:last-child){
+            margin-bottom: 0;
+        }
+        .rs-skill-wrapper {
+            display: grid;
+            grid-template-columns: 495px auto;
+            gap: 30px 60px;
+            @media #{$lg}{
+                grid-template-columns: 400px auto;
+                gap: 30px 30px;
+                align-items: center;
+                @media #{$md}{
+                    grid-template-columns: auto;
+                }
+            }
+        }
+        .rs-skill-descrip {
+            margin-top: 40px;
+            margin-bottom: 35px;
+            @media #{$mobile}{
+                margin-top: 30px;
+            }
+        }
+        .rs-text-slide-title{
+            font-size: 120px;
+            color: #02010100;
+            -webkit-text-stroke-width: 1px;
+            stroke-width: 1px;
+            -webkit-text-stroke-color: #DADADA;
+            stroke: #DADADA;
+            text-transform: uppercase;
+            line-height: .9;
+            @media #{$xl}{
+                font-size: 100px;
+            }
+        }
+        .rs-text-slide-three{
+            padding: 0;
+        }
+        .rs-skill-counter {
+            margin-top: -140px;
+            margin-inline-start: 830PX;
+            @media #{$laptop}{
+                 margin-inline-start: 680PX;
+            }
+            @media #{$lg}{
+                display: none;
+            }
+        }
+    }
+}

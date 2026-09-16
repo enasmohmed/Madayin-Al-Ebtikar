@@ -1,0 +1,44 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% if offer_items %}
+<div class="rs-feature-area rs-feature-three{% if offer_items|length > 3 %} has-four-items{% endif %}">
+  <div class="rs-feature-bg-thumb" data-background="{% static 'assets/images/bg/features-bg-01.png' %}"></div>
+  <div class="container">
+    <div class="row g-5">
+      {% for item in offer_items %}
+      {% cycle 'feature-icon-04.png' 'feature-icon-05.png' 'feature-icon-06.png' 'feature-icon-07.png' as default_icon silent %}
+      <div class="{% if offer_items|length > 3 %}col-xl-3 col-lg-6 col-md-6{% else %}col-xl-4 col-lg-4 col-md-6{% endif %}">
+        <div
+          class="rs-feature-item wow fadeInUp{% if not item.text %} has-no-text{% endif %}"
+          data-wow-delay="{% cycle '.3s' '.5s' '.7s' '.9s' %}"
+          data-wow-duration="1s"
+        >
+          <div class="rs-feature-icon">
+            {% if item.icon_classes %}
+            <i class="{{ item.icon_classes }}" aria-hidden="true"></i>
+            {% else %}
+            <img
+              src="{% if item.icon %}{{ item.icon.url }}{% else %}{% static 'assets/images/icon/'|add:default_icon %}{% endif %}"
+              alt="{{ item.title|default_if_none:'' }}"
+            >
+            {% endif %}
+          </div>
+          <div class="rs-feature-content">
+            {% if item.title %}
+            <h5 class="rs-feature-title">{{ item.title }}</h5>
+            {% endif %}
+            {% if item.text %}
+            <div class="rs-feature-descrip">
+              <p>{{ item.text|linebreaksbr }}</p>
+            </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endif %}

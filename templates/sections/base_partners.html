@@ -1,0 +1,85 @@
+{% load static %}
+{% load i18n %}
+
+{% if base_partners_section and base_partners %}
+<section id="base-partners" class="rs-brand-area rs-brand-three rs-base-partners rs-swiper section-space">
+  <div class="container">
+    <div class="rs-base-partners-head wow fadeInUp" data-wow-delay=".2s" data-wow-duration="1s">
+      <div class="rs-section-title-wrapper">
+        {% if base_partners_section.label %}
+        <span class="rs-section-subtitle">{{ base_partners_section.label }}</span>
+        {% endif %}
+        {% if base_partners_section.title %}
+        <h2 class="rs-section-title">{{ base_partners_section.title }}</h2>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  <div class="rs-base-partners-slider wow fadeInUp rs-reveal-fade" data-wow-delay=".4s" data-wow-duration="1s">
+    <div
+      class="swiper"
+      data-clone-slides="false"
+      data-loop="true"
+      data-autoplay="true"
+      data-hover-pause="false"
+      data-grab-cursor="true"
+      data-dots-dynamic="false"
+      data-speed="700"
+      data-item="6"
+      data-item-xl="6"
+      data-item-lg="6"
+      data-item-md="4"
+      data-item-sm="3"
+      data-item-xs="2"
+      data-item-mobile="2"
+      data-margin="30"
+    >
+      <div class="swiper-wrapper">
+        {% for logo in base_partners %}
+        <div class="swiper-slide">
+          {% include "partials/_base_partner_slide.html" with logo=logo %}
+        </div>
+        {% endfor %}
+        {% if base_partners|length <= 6 %}
+        {% for logo in base_partners %}
+        <div class="swiper-slide">
+          {% include "partials/_base_partner_slide.html" with logo=logo %}
+        </div>
+        {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  (function () {
+    var section = document.getElementById("base-partners");
+    if (!section) return;
+    section.addEventListener("click", function (event) {
+      var item = event.target.closest(".rs-brand-item");
+      if (!item || !section.contains(item)) return;
+      section.querySelectorAll(".rs-brand-item.is-scaled").forEach(function (el) {
+        if (el !== item) el.classList.remove("is-scaled");
+      });
+      item.classList.toggle("is-scaled");
+    });
+    window.addEventListener("load", function () {
+      var slider = section.querySelector(".rs-base-partners-slider");
+      var swiperEl = section.querySelector(".swiper");
+      var swiper = swiperEl && swiperEl.swiper;
+      if (!slider || !swiper || !swiper.autoplay) return;
+      swiper.autoplay.stop();
+      function startSlide() {
+        swiper.autoplay.start();
+      }
+      function stopSlide() {
+        swiper.autoplay.stop();
+      }
+      slider.addEventListener("mouseenter", startSlide);
+      slider.addEventListener("mouseleave", stopSlide);
+      slider.addEventListener("touchstart", startSlide, { passive: true });
+      slider.addEventListener("pointerenter", startSlide);
+    });
+  })();
+</script>
+{% endif %}

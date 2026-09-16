@@ -1,0 +1,175 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% if mvv_block %}
+{% with panels=mvv_block.tab_panels.all %}
+<section id="homeabout" class="rs-about-area section-space rs-about-four">
+  <span id="about"></span>
+  <span id="mission-vision-values"></span>
+  <span id="vision"></span>
+  <span id="mission"></span>
+  <span id="values"></span>
+  <div class="container">
+    <div class="row g-5">
+      <div class="col-xl-6 col-lg-6 wow fadeInLeft" data-wow-delay=".2s" data-wow-duration="1s">
+        <div class="rs-about-thumb-wrapper">
+          <div class="rs-about-thumb-left-part">
+            <div class="rs-about-thumb">
+              <img
+                src="{% if mvv_block.image_main %}{{ mvv_block.image_main.url }}{% else %}{% static 'assets/images/about/about-thumb-04.png' %}{% endif %}"
+                alt="{{ mvv_block.title|default:site_settings.site_name }}"
+              >
+            </div>
+            {% if mvv_block.video_link %}
+            <div class="rs-about-video-btn">
+              <div class="rs-rotate-btn">
+                <a href="{{ mvv_block.video_link }}" class="rs-play-btn popup-video has-theme-red">
+                  <i class="ri-play-fill"></i>
+                </a>
+                <div class="rs-circle-title gsap-rotate rs-text-circle-wrapper">
+                  <div class="rs-text-circle" data-rotate-degree="13.33">
+                    {% trans "Watch Video" %} - {% trans "Watch Video" %} -
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          </div>
+          <div class="rs-about-thumb-right-part">
+            {% if mvv_block.counter_number %}
+            <div class="rs-about-counter">
+              <div class="rs-counter-inner">
+                <div class="rs-counter-number-wrapper">
+                  <span class="rs-counter-number odometer" data-count="{{ mvv_block.counter_number }}">00</span>
+                  {% if mvv_block.counter_suffix %}
+                  <span class="prefix">{{ mvv_block.counter_suffix }}</span>
+                  {% endif %}
+                </div>
+                {% if mvv_block.counter_title %}
+                <span class="rs-counter-title">{{ mvv_block.counter_title }}</span>
+                {% endif %}
+              </div>
+            </div>
+            {% endif %}
+            <div class="rs-about-thumb has-large-thumb rs-image scroll_reveal reveal_left reveal-active">
+              <img
+                decoding="async"
+                src="{% if mvv_block.image_large %}{{ mvv_block.image_large.url }}{% else %}{% static 'assets/images/about/about-thumb-05.png' %}{% endif %}"
+                alt="{{ mvv_block.title|default:site_settings.site_name }}"
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-xl-6 col-lg-6 wow fadeInRight" data-wow-delay=".35s" data-wow-duration="1s">
+        <div class="rs-about-wrapper">
+          <div class="rs-about-content-wrapper">
+            <div class="rs-section-title-wrapper">
+              {% trans "About Us" as default_subtitle %}
+              <span class="rs-section-subtitle has-bg-field justify-content-start">
+                {{ mvv_block.subtitle|default:default_subtitle }}
+              </span>
+              <h2 class="rs-section-title rs-split-text-enable split-in-fade">
+                {{ mvv_block.title|default:site_settings.site_name }}
+              </h2>
+              {% with about_text=mvv_block.intro|default:site_settings.footer_about %}
+              {% if about_text %}
+              <p class="descrip">{{ about_text|linebreaksbr }}</p>
+              {% endif %}
+              {% endwith %}
+            </div>
+            {% if panels %}
+            <div class="rs-about-tab">
+              <ul class="nav nav-pills" id="pills-tab" role="tablist">
+                {% for panel in panels %}
+                <li class="nav-item" role="presentation">
+                  <button
+                    class="nav-link{% if forloop.first %} active{% endif %}"
+                    id="pills-{{ panel.tab_key }}-tab"
+                    data-bs-toggle="pill"
+                    data-bs-target="#pills-{{ panel.tab_key }}"
+                    type="button"
+                    role="tab"
+                    aria-controls="pills-{{ panel.tab_key }}"
+                    aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                  >
+                    {% if panel.title %}
+                      {{ panel.title }}
+                    {% elif panel.tab_key == 'vision' %}
+                      {% trans "Our vision" %}
+                    {% elif panel.tab_key == 'mission' %}
+                      {% trans "Our mission" %}
+                    {% else %}
+                      {% trans "Our values" %}
+                    {% endif %}
+                  </button>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+            <div class="rs-aobut-tab-content-wrapper">
+              <div class="tab-content rs-about-tab-anim" id="pills-tabContent">
+                {% for panel in panels %}
+                <div
+                  class="tab-pane fade{% if forloop.first %} show active{% endif %}"
+                  id="pills-{{ panel.tab_key }}"
+                  role="tabpanel"
+                  aria-labelledby="pills-{{ panel.tab_key }}-tab"
+                  tabindex="0"
+                >
+                  <div class="rs-about-tab-content">
+                    {% if panel.body %}
+                    <div>{{ panel.body|safe }}</div>
+                    {% endif %}
+                    {% with bullets=panel.bullets.all %}
+                    {% if bullets %}
+                    <div class="rs-about-feature-list">
+                      <div class="rs-list-item has-theme-red">
+                        <ul>
+                          {% for b in bullets %}
+                          <li>
+                            <i class="fa-regular fa-check"></i>
+                            {{ b.text }}
+                          </li>
+                          {% endfor %}
+                        </ul>
+                      </div>
+                    </div>
+                    {% endif %}
+                    {% endwith %}
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            {% endif %}
+            <div class="rs-about-author-info">
+              <div class="rs-about-btn">
+                <a class="rs-btn has-theme-red has-icon has-bg has-skew" href="{% url 'home' %}#homecontact">
+                  {% trans "Explore More" %}
+                  {% include 'partials/_skew_arrow.html' %}
+                </a>
+              </div>
+              {% if mvv_block.author_photo or mvv_block.author_signature %}
+              <div class="rs-about-author">
+                {% if mvv_block.author_photo %}
+                <div class="rs-about-author-thumb">
+                  <img src="{{ mvv_block.author_photo.url }}" alt="{{ mvv_block.title|default:site_settings.site_name }}">
+                </div>
+                {% endif %}
+                {% if mvv_block.author_signature %}
+                <div class="rs-about-author-sign-thumb">
+                  <img src="{{ mvv_block.author_signature.url }}" alt="">
+                </div>
+                {% endif %}
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endwith %}
+{% endif %}

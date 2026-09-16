@@ -1,0 +1,150 @@
+@use '../../utils' as *;
+/*----------------------------------------*/
+/*  3.1.15 Banner Style 16
+/*----------------------------------------*/
+
+
+.rs-banner-sixteen {
+    position: relative;
+    margin-inline: 20px;
+    overflow-x: clip;
+    .rs-banner-bg-thumb {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+        border-radius: 30px;
+        -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 500' preserveAspectRatio='none'%3E%3Cpath d='M0,0 H1000 V420 Q1000,450 970,450 H570 C550,450 540,500 500,500 C460,500 450,450 430,450 H30 Q0,450 0,420 Z' fill='%23000'/%3E%3C/svg%3E");
+        -webkit-mask-position: center;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-size: 100% 100%;
+        @media #{$laptop} {
+            -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 500' preserveAspectRatio='none'%3E%3Cpath d='M0,0 H1000 V420 Q1000,450 970,450 H670 C550,450 540,500 500,500 C460,500 450,450 330,450 H30 Q0,450 0,420 Z' fill='%23000'/%3E%3C/svg%3E");
+        }
+        @media #{$sm} {
+            -webkit-mask-image: none;
+        }
+        &::before {
+            content: "";
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            inset: 0;
+            border-radius: 30px;
+            background: linear-gradient(to bottom,
+                    rgba(10, 30, 15, 0.7) 0%,
+                    rgba(10, 30, 15, 0.3) 100%);
+        }
+    }
+    .rs-banner-wrapper {
+        padding-top: 145px;
+        padding-bottom: 455px;
+        text-align: center;
+        position: relative;
+        @media #{$laptop}{
+            padding-top: 130px;
+            padding-bottom: 400px;
+        }
+        @media #{$xl}{
+            padding-top: 130px;
+            padding-bottom: 350px;
+        }
+        @media #{$lg}{
+            padding-top: 110px;
+            padding-bottom: 300px;
+        }
+        @media #{$sm}{
+            padding-top: 80px;
+            padding-bottom: 250px;
+        }
+    }
+    .rs-banner-subtitle {
+        font-size: 14px;
+        font-weight: 500;
+        color: var(--rs-white);
+        margin-bottom: 13px;
+        display: inline-flex;
+        align-items: center;
+        background: var(--rs-theme-bright-green);
+        border-radius: 30px;
+        padding-inline: 15px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    .rs-banner-title {
+        color: var(--rs-white);
+        font-size: 82px;
+        line-height: 1.13;
+        letter-spacing: -2px;
+        @media #{$laptop} {
+            font-size: 70px;
+        }
+        @media #{$xl} {
+            font-size: 60px;
+        }
+        @media #{$lg} {
+            font-size: 50px;
+        }
+        @media #{$md} {
+            font-size: 40px;
+        }
+    }
+
+    .rs-banner-circle-btn {
+        position: absolute;
+        left: 50%;
+        bottom: 20px;
+        z-index: 2;
+        text-align: start;
+        transform: translateX(-50%);
+    }
+    .rs-rotate-btn {
+        width: 150px;
+        height: 150px;
+        background-color: var(--rs-theme-bright-green);
+        border-radius: 50%;
+        padding: 2px;
+    }
+    .rs-rotate-shape {
+        background-color: var(--rs-white);
+        width: 90px;
+        height: 90px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        text-align: center;
+        padding: 20px;
+        z-index: 1;
+        img {
+            width: 35px;
+            height: 35px;
+            animation: rs-scale 1s infinite alternate;
+            animation-duration: 1s;
+        }
+    }
+    .rs-text-circle {
+        span {
+            font-weight: 600;
+            color: var(--rs-white);
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+    }
+    .rs-text-circle-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+    }
+}

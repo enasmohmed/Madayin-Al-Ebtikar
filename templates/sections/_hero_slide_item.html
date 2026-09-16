@@ -1,0 +1,45 @@
+{% load i18n %}
+<div class="swiper-slide">
+  <div class="rs-banner-item-wrapper">
+    <div
+      class="rs-banner-bg-thumb"
+      {% if bg_url %}data-background="{{ bg_url }}" style="background-image: url('{{ bg_url }}');"{% endif %}
+    >
+      {% if bg_url %}
+      <img class="hero-bg-img" src="{{ bg_url }}" alt="{{ slide.heading|default:'' }}">
+      {% endif %}
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xxl-8 col-xl-10 col-lg-11">
+          <div class="rs-banner-item">
+            <div class="rs-banner-content">
+              {% if slide.tagline %}
+              <span class="rs-banner-subtitle">{{ slide.tagline }}</span>
+              {% endif %}
+              {% if slide.heading %}
+              <h1 class="rs-banner-title">{{ slide.heading }}</h1>
+              {% endif %}
+              {% if slide.lead %}
+              <div class="rs-banner-descrip">
+                <p>{{ slide.lead|linebreaksbr }}</p>
+              </div>
+              {% endif %}
+              {% if slide.button_text or slide.button_link %}
+              <div class="rs-banner-btn">
+                <a
+                  class="rs-btn has-theme-red has-icon has-bg has-skew"
+                  href="{% if slide.button_link %}{{ slide.button_link }}{% else %}{% url 'home' %}#homecontact{% endif %}"
+                >
+                  {% if slide.button_text %}{{ slide.button_text }}{% else %}{% trans "Explore More" %}{% endif %}
+                  {% include 'partials/_skew_arrow.html' %}
+                </a>
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

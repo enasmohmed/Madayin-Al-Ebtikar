@@ -1,0 +1,1312 @@
+{% load static %} {% load i18n %}
+<!doctype html>
+<html
+  class="no-js"
+  lang="{{ LANGUAGE_CODE }}"
+  dir="{% if LANGUAGE_CODE == 'ar' %}rtl{% else %}ltr{% endif %}"
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="{{ LANGUAGE_CODE }}" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <meta name="template-version" content="1.0.8" />
+    <title>{{ site_settings.site_name }}</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link
+      rel="shortcut icon"
+      type="image/x-icon"
+      href="{{ site_settings.favicon_url }}"
+    />
+    <link rel="icon" sizes="48x48" href="{{ site_settings.favicon_url }}" />
+    <link rel="apple-touch-icon" href="{{ site_settings.favicon_url }}" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap"
+    />
+
+    <!-- CSS here -->
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/animate.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/swiper.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nice-select.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/plugins/nouislider.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/magnific-popup.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/odometer.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/fontawesome-pro.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/spacing.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/vendor/remixicon.css' %}" />
+    <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
+
+    <style>
+      :root {
+        --primary-color: {{ site_settings.primary_color|default:"#F5A623" }};
+        --secondary-color: {{ site_settings.secondary_color|default:"#0B1B3A" }};
+        --rs-theme-red: {{ site_settings.theme_red|default:"#E30613" }};
+        --rs-ff-body: "Cairo", sans-serif;
+        --rs-ff-title: "Cairo", sans-serif;
+        --rs-ff-p: "Cairo", sans-serif;
+      }
+      html {
+        font-family: "Cairo", sans-serif;
+        overflow-x: clip;
+        max-width: 100%;
+      }
+      body {
+        font-family: "Cairo", sans-serif;
+        overflow-x: clip;
+        max-width: 100%;
+        width: 100%;
+      }
+      .rs-btn.is-ff-secondary,
+      .rs-banner-four .rs-banner-stroke-text span {
+        font-family: "Cairo", sans-serif;
+      }
+      .rs-banner-stroke-text {
+        overflow: hidden;
+        max-width: 100%;
+      }
+      main {
+        overflow: visible;
+      }
+      .rs-footer-two {
+        z-index: 1;
+      }
+      .rs-about-four .rs-about-thumb.has-large-thumb,
+      .rs-about-four .rs-about-thumb.has-large-thumb img {
+        transform: none !important;
+      }
+      .rs-about-four .rs-about-video-btn {
+        position: relative;
+        inset: auto;
+        transform: none;
+      }
+      .rs-header-two .rs-header-logo img,
+      .rs-header-seven .rs-header-logo img {
+        width: auto;
+        max-width: 168px;
+        max-height: 78px;
+        object-fit: contain;
+      }
+      /* The header height comes from the nav links, not the logo, so a wider
+         logo box enlarges it without changing the bar height. */
+      .rs-header-two .rs-header-logo img {
+        max-width: 240px;
+      }
+      @media only screen and (max-width: 1366px) {
+        .rs-header-two .rs-header-logo img {
+          max-width: 200px;
+        }
+      }
+      .rs-header-lang .lang-icon {
+        display: inline-flex;
+        align-items: center;
+        font-size: 24px;
+        line-height: 1;
+        color: var(--rs-white);
+        cursor: pointer;
+        transition: color 0.3s ease-out 0s;
+      }
+      .rs-header-lang .lang-icon:hover {
+        color: var(--rs-theme-red);
+      }
+      .offcanvas-logo img {
+        max-height: 90px;
+        width: auto;
+        object-fit: contain;
+      }
+      .loader .loader-container,
+      .loader .loader-container:before {
+        width: 170px;
+        height: 170px;
+      }
+      .loader .loader-icon {
+        width: 140px;
+      }
+      .loader .loader-icon img {
+        width: 88px;
+        max-width: 88px;
+        max-height: 88px;
+        height: auto;
+        object-fit: contain;
+      }
+      .rs-footer-widget-logo img {
+        max-height: 70px;
+        width: auto;
+        object-fit: contain;
+      }
+      .rs-cta-two .rs-cta-form .rs-cta-input {
+        display: block;
+        width: 100%;
+        margin-bottom: 12px;
+      }
+      .rs-cta-two .rs-cta-form input,
+      .rs-cta-two .rs-cta-form textarea {
+        width: 100%;
+        background: #fff;
+        color: #142340;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding-inline-start: 30px;
+        padding-inline-end: 30px;
+      }
+      .rs-cta-two .rs-cta-form textarea {
+        min-height: 120px;
+        height: auto;
+        border-radius: 24px;
+        padding-top: 18px;
+        padding-bottom: 18px;
+        resize: vertical;
+      }
+      .rs-cta-two .rs-cta-title,
+      .rs-cta-two .descrip,
+      .rs-cta-two label {
+        color: #fff;
+      }
+      .rs-cta-two .descrip {
+        color: rgba(255, 255, 255, 0.95);
+      }
+      .rs-cta-two .rs-cta-form input::placeholder,
+      .rs-cta-two .rs-cta-form textarea::placeholder {
+        color: #8b93a7;
+        opacity: 1;
+      }
+      .rs-banner-four .rs-banner-bg-thumb {
+        background-color: #0a1730;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+      }
+      .rs-banner-four .rs-banner-bg-thumb img.hero-bg-img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        z-index: 0;
+      }
+      .rs-banner-four .rs-banner-bg-thumb::before {
+        z-index: 1;
+        background-color: rgba(10, 23, 48, 0.3);
+        background-image: linear-gradient(
+          180deg,
+          rgba(8, 20, 45, 0.68) 0%,
+          rgba(13, 38, 82, 0.45) 45%,
+          rgba(8, 20, 45, 0.72) 100%
+        );
+      }
+      /* The strip image is only 1720px wide, so the dark band ran out before the
+         4th column on wider screens. Fill the band and redraw the theme's
+         slanted right edge (78px over the full height) at any width. */
+      @media only screen and (min-width: 992px) {
+        .rs-feature-three {
+          clip-path: polygon(0 0, 94.5% 0, 90% 100%, 0 100%);
+        }
+        .rs-feature-three .rs-feature-bg-thumb {
+          background-color: #172542;
+        }
+      }
+      .rs-feature-three.has-four-items .rs-feature-item {
+        gap: 16px;
+        max-width: 330px;
+      }
+      .rs-feature-three.has-four-items .rs-feature-icon img {
+        width: 58px;
+        min-width: 58px;
+      }
+      .rs-feature-three .rs-feature-icon i {
+        font-size: 46px;
+        line-height: 1;
+        color: var(--rs-theme-red);
+        display: inline-flex;
+        width: 70px;
+        min-width: 70px;
+        justify-content: center;
+      }
+      .rs-feature-three.has-four-items .rs-feature-icon i {
+        font-size: 40px;
+        width: 58px;
+        min-width: 58px;
+      }
+      .rs-feature-three .rs-feature-item.has-no-text {
+        align-items: center;
+      }
+      .rs-feature-three .rs-feature-item.has-no-text .rs-feature-title {
+        margin-bottom: 0;
+      }
+      .rs-banner-four .swiper-wrapper {
+        align-items: stretch;
+      }
+      .rs-banner-four .swiper-slide {
+        height: auto;
+      }
+      #home.rs-banner-four,
+      .rs-banner-four .rs-banner-slider-wrapper,
+      .rs-banner-four .swiper,
+      .rs-banner-four .swiper-wrapper,
+      .rs-banner-four .swiper-slide,
+      .rs-banner-four .rs-banner-item-wrapper {
+        min-height: 100vh;
+        height: 100vh;
+      }
+      @supports (height: 100dvh) {
+        #home.rs-banner-four,
+        .rs-banner-four .rs-banner-slider-wrapper,
+        .rs-banner-four .swiper,
+        .rs-banner-four .swiper-wrapper,
+        .rs-banner-four .swiper-slide,
+        .rs-banner-four .rs-banner-item-wrapper {
+          min-height: 100dvh;
+          height: 100dvh;
+        }
+      }
+      .rs-banner-four .rs-banner-item-wrapper {
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+      }
+      .rs-banner-four .rs-banner-item-wrapper > .container {
+        width: 100%;
+      }
+      .rs-banner-four .rs-banner-bg-thumb {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+      }
+      /* The theme's side image is a fixed-size PNG; uploaded photos come in any
+         size, so pin the panel to the right half and fade it into the band. */
+      .rs-services-four .rs-services-bg-thumb {
+        width: 46%;
+        inset-inline-start: auto;
+        inset-inline-end: 0;
+        background-position: center;
+        background-size: cover;
+        -webkit-mask-image: linear-gradient(to left, #000 65%, transparent 100%);
+        mask-image: linear-gradient(to left, #000 65%, transparent 100%);
+      }
+      [dir="rtl"] .rs-services-four .rs-services-bg-thumb {
+        transform: none;
+        -webkit-mask-image: linear-gradient(to right, #000 65%, transparent 100%);
+        mask-image: linear-gradient(to right, #000 65%, transparent 100%);
+      }
+      /* Each service can carry an intro plus bullet points, which the theme's
+         single-line row has no room for. */
+      .rs-services-four .rs-services-content {
+        align-items: flex-start;
+      }
+      .rs-services-four .rs-services-text p {
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.85);
+      }
+      .rs-services-four .rs-services-points {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 24px;
+        margin: 10px 0 0;
+        padding: 0;
+        list-style: none;
+      }
+      .rs-services-four .rs-services-points li {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        font-size: 14px;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.75);
+      }
+      .rs-services-four .rs-services-points li i {
+        color: var(--rs-theme-red);
+        font-size: 12px;
+      }
+      .rs-highlight-stats .rs-category-item {
+        min-height: 0;
+        height: 100%;
+        padding: 28px 24px;
+        align-items: center;
+        overflow: hidden;
+        transition: transform 0.35s ease, box-shadow 0.35s ease;
+      }
+      .rs-highlight-stats .rs-category-item:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 18px 40px rgba(20, 35, 64, 0.12);
+      }
+      .rs-highlight-stats .rs-category-icon {
+        width: 72px;
+        height: 72px;
+        perspective: 120px;
+      }
+      .rs-highlight-stats .rs-category-icon i {
+        font-size: 32px;
+        line-height: 1;
+        color: var(--rs-theme-red);
+      }
+      .rs-highlight-stats .rs-category-item:hover .rs-category-icon i {
+        animation: rs-fold linear 0.35s;
+      }
+      .rs-highlight-stats .rs-highlight-number {
+        display: flex;
+        align-items: baseline;
+        gap: 2px;
+        margin-bottom: 6px;
+        font-size: 32px;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--rs-heading-color, #142340);
+      }
+      .rs-highlight-stats .rs-highlight-number .odometer {
+        font-size: inherit;
+        font-weight: inherit;
+        line-height: inherit;
+      }
+      .rs-highlight-stats .rs-category-content .descrip {
+        margin-bottom: 0;
+        font-size: 16px;
+      }
+      .rs-highlight-stats .rs-category-item.has-custom-count::before {
+        content: none;
+      }
+      .rs-highlight-stats.is-inview .row > div:nth-child(1) .rs-category-item:not(.animated) { animation: fadeInUp 0.8s ease both 0.15s; }
+      .rs-highlight-stats.is-inview .row > div:nth-child(2) .rs-category-item:not(.animated) { animation: fadeInUp 0.8s ease both 0.3s; }
+      .rs-highlight-stats.is-inview .row > div:nth-child(3) .rs-category-item:not(.animated) { animation: fadeInUp 0.8s ease both 0.45s; }
+      .rs-highlight-stats.is-inview .row > div:nth-child(4) .rs-category-item:not(.animated) { animation: fadeInUp 0.8s ease both 0.6s; }
+      @media only screen and (min-width: 1200px) {
+        .rs-highlight-stats .rs-category-item {
+          padding: 36px 28px;
+          gap: 22px;
+        }
+        .rs-highlight-stats .rs-category-icon {
+          width: 92px;
+          height: 92px;
+        }
+        .rs-highlight-stats .rs-category-icon i {
+          font-size: 42px;
+        }
+        .rs-highlight-stats .rs-highlight-number {
+          font-size: 48px;
+        }
+        .rs-highlight-stats .rs-category-content .descrip {
+          font-size: 18px;
+        }
+      }
+      @media only screen and (min-width: 1600px) {
+        .rs-highlight-stats .rs-category-icon {
+          width: 104px;
+          height: 104px;
+        }
+        .rs-highlight-stats .rs-category-icon i {
+          font-size: 48px;
+        }
+        .rs-highlight-stats .rs-highlight-number {
+          font-size: 56px;
+        }
+        .rs-highlight-stats .rs-category-content .descrip {
+          font-size: 20px;
+        }
+      }
+      #final-word.section-space-bottom {
+        margin-top: 80px;
+        padding-top: 0;
+        padding-bottom: 80px;
+      }
+      #final-word.rs-progress-one::before {
+        content: none;
+      }
+      .rs-final-word-shell {
+        width: 100%;
+        max-width: none;
+        margin-inline: 0;
+      }
+      .rs-progress-one .rs-progress-wrapper {
+        position: relative;
+        height: auto;
+        min-height: 380px;
+        overflow: hidden;
+        background-color: #142340;
+      }
+      .rs-progress-one .rs-progress-bg-thumb {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background: none;
+      }
+      .rs-progress-one .rs-progress-bg-thumb img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .rs-progress-one .rs-progress-bg-thumb::before {
+        inset: 0;
+        background: rgba(20, 35, 64, 0.5);
+      }
+      [dir="rtl"] .rs-progress-one .rs-progress-bg-thumb::before {
+        background: rgba(20, 35, 64, 0.5);
+      }
+      .rs-progress-one .rs-progress-content {
+        position: relative;
+        z-index: 2;
+        bottom: auto;
+        padding: 48px 6vw;
+      }
+      .rs-progress-one .rs-progress-title {
+        margin: 10px 0 18px;
+      }
+      .rs-progress-one .rs-final-word-paragraphs {
+        --bs-gutter-x: 28px;
+        --bs-gutter-y: 20px;
+        margin-top: 4px;
+      }
+      .rs-progress-one .rs-final-word-paragraphs p {
+        margin-bottom: 0;
+        color: rgba(255, 255, 255, 0.92);
+        font-size: 16px;
+        line-height: 1.75;
+      }
+      .rs-progress-one .rs-progress-btn {
+        margin-top: 24px;
+        position: relative;
+        z-index: 2;
+      }
+      @media only screen and (max-width: 991px) {
+        #final-word.section-space-bottom {
+          margin-top: 50px;
+          padding-bottom: 60px;
+        }
+        .rs-progress-one .rs-progress-content {
+          padding: 32px 20px;
+        }
+      }
+      #partners.rs-partners-gallery {
+        scroll-margin-top: 110px;
+        padding-top: 10px;
+        padding-bottom: 80px;
+      }
+      #partners.rs-partners-gallery .section-title-space {
+        margin-bottom: 32px;
+      }
+      #partners.rs-partners-gallery .rs-partners-placeholder {
+        background-color: #8b9198;
+      }
+      #partners.rs-partners-gallery .rs-partners-featured-row {
+        --bs-gutter-x: 30px;
+        --bs-gutter-y: 30px;
+      }
+      #partners.rs-partners-gallery .rs-partners-featured-wide .rs-portfolio-item {
+        height: 450px;
+      }
+      #partners.rs-partners-gallery .rs-partners-featured-tall .rs-portfolio-item {
+        height: 450px;
+      }
+      #partners.rs-partners-gallery .rs-partners-slider {
+        position: relative;
+        margin-top: 30px;
+      }
+      #partners.rs-partners-gallery .rs-partners-slider .rs-portfolio-item {
+        height: 450px;
+      }
+      #partners.rs-partners-gallery .rs-partners-slider-nav {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-top: 24px;
+      }
+      @media only screen and (max-width: 1600px) {
+        #partners.rs-partners-gallery .rs-partners-featured-wide .rs-portfolio-item,
+        #partners.rs-partners-gallery .rs-partners-featured-tall .rs-portfolio-item,
+        #partners.rs-partners-gallery .rs-partners-slider .rs-portfolio-item {
+          height: 400px;
+        }
+      }
+      @media only screen and (max-width: 991px) {
+        #partners.rs-partners-gallery {
+          padding-bottom: 60px;
+        }
+        #partners.rs-partners-gallery .rs-partners-featured-row {
+          --bs-gutter-x: 12px;
+          --bs-gutter-y: 12px;
+        }
+        #partners.rs-partners-gallery .rs-partners-slider {
+          overflow: hidden;
+          margin-top: 16px;
+        }
+        #partners.rs-partners-gallery .rs-partners-slider .swiper {
+          overflow: hidden;
+          border-radius: 12px;
+        }
+        #partners.rs-partners-gallery .rs-partners-featured-wide .rs-portfolio-item,
+        #partners.rs-partners-gallery .rs-partners-featured-tall .rs-portfolio-item,
+        #partners.rs-partners-gallery .rs-partners-slider .rs-portfolio-item {
+          height: auto;
+          aspect-ratio: 16 / 10;
+          max-height: 260px;
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        #partners.rs-partners-gallery .rs-partners-slider-nav {
+          margin-top: 12px;
+          gap: 8px;
+        }
+        #partners.rs-partners-gallery .rs-partners-slider-nav .rs-swiper-btn,
+        #partners.rs-partners-gallery .rs-partners-slider-nav .swiper-button-prev,
+        #partners.rs-partners-gallery .rs-partners-slider-nav .swiper-button-next {
+          position: static;
+          width: 40px;
+          height: 40px;
+          min-width: 40px;
+          margin: 0;
+          left: auto;
+          right: auto;
+          top: auto;
+          border-radius: 8px;
+        }
+      }
+      @media only screen and (max-width: 575px) {
+        #partners.rs-partners-gallery .rs-partners-featured-wide .rs-portfolio-item,
+        #partners.rs-partners-gallery .rs-partners-featured-tall .rs-portfolio-item,
+        #partners.rs-partners-gallery .rs-partners-slider .rs-portfolio-item {
+          height: auto;
+          aspect-ratio: 16 / 10;
+          max-height: 220px;
+        }
+      }
+      .rs-highlight-stats .section-title-space {
+        margin-bottom: 32px;
+      }
+      #homecontact.rs-cta-two {
+        position: relative;
+        z-index: 5;
+        margin-bottom: -140px;
+        overflow: visible;
+      }
+      #homecontact.rs-cta-two .rs-cta-wrapper {
+        background-color: var(--rs-theme-red);
+        padding-top: 70px;
+        padding-bottom: 48px;
+        overflow: visible;
+      }
+      #homecontact.rs-cta-two .rs-cta-bg-thumb {
+        background-color: var(--rs-theme-red);
+        background-blend-mode: multiply;
+        filter: grayscale(1) contrast(1.15);
+        opacity: 0.35;
+      }
+      #homecontact.rs-cta-two .rs-cta-thumb {
+        margin-top: 0;
+        display: block;
+      }
+      #homecontact.rs-cta-two .rs-cta-thumb img {
+        width: min(100%, 320px);
+        height: auto;
+        max-height: 420px;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 12px;
+      }
+      #homecontact.rs-cta-two .rs-cta-input button.rs-btn {
+        background: #142340;
+        color: #fff;
+      }
+      @media only screen and (max-width: 991px) {
+        #homecontact.rs-cta-two .rs-cta-wrapper {
+          padding-top: 40px;
+          padding-bottom: 40px;
+        }
+        #homecontact.rs-cta-two .rs-cta-thumb {
+          display: block;
+          margin-bottom: 24px;
+        }
+      }
+      .rs-truck-dealers {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        scroll-margin-top: 90px;
+      }
+      .rs-truck-dealers-bg {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        background-position: bottom center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+      }
+      .rs-truck-dealers-head {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 24px;
+        margin-bottom: 40px;
+      }
+      .rs-truck-dealers .rs-section-subtitle {
+        color: var(--primary-color, #f5a623);
+        background: none;
+        padding: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .rs-truck-dealers .rs-section-title {
+        color: var(--rs-heading-color, #142340);
+        margin-bottom: 0;
+        text-transform: capitalize;
+      }
+      .rs-truck-dealers .rs-truck-dealers-nav {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 6px;
+      }
+      .rs-truck-dealers .rs-swiper-btn.has-theme-yellow {
+        background: var(--primary-color, #f5a623);
+        color: #142340;
+        width: 48px;
+        height: 48px;
+      }
+      .rs-truck-dealers .rs-portfolio-slider-wrapper {
+        padding: 0;
+        margin: 0 auto;
+        max-width: 100%;
+      }
+      .rs-truck-dealers.section-space {
+        padding-top: 100px;
+        padding-bottom: 100px;
+      }
+      .rs-truck-dealers .rs-portfolio-item {
+        height: auto;
+        overflow: hidden;
+        background: #d6d6d6;
+      }
+      .rs-truck-dealers .rs-portfolio-item::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background: rgba(10, 14, 22, 0.28);
+        transition: background 0.4s ease;
+      }
+      .rs-truck-dealers .rs-portfolio-item:hover::after {
+        background: rgba(10, 14, 22, 0.5);
+      }
+      .rs-truck-dealers .rs-portfolio-thumb {
+        width: 100%;
+        aspect-ratio: 1 / 1;
+        padding: 16%;
+        box-sizing: border-box;
+        background-color: transparent;
+        background-size: contain;
+        background-origin: content-box;
+        background-position: center;
+        background-repeat: no-repeat;
+        transform: scale(1);
+        transition: transform 0.5s ease;
+      }
+      .rs-truck-dealers .rs-portfolio-thumb::before {
+        content: none;
+      }
+      .rs-truck-dealers .rs-portfolio-item:hover .rs-portfolio-thumb {
+        transform: scale(1.08);
+      }
+      .rs-truck-dealers .rs-portfolio-content {
+        top: auto;
+        bottom: 72px;
+        inset-inline-start: 24px;
+        inset-inline-end: 24px;
+        z-index: 2;
+      }
+      .rs-truck-dealers .rs-portfolio-title {
+        font-size: 22px;
+        margin: 0;
+      }
+      .rs-truck-dealers .rs-portfolio-title a {
+        color: #fff;
+      }
+      .rs-truck-dealers .rs-portfolio-btn {
+        opacity: 1;
+        visibility: visible;
+        bottom: 18px;
+        inset-inline-end: 18px;
+        z-index: 2;
+      }
+      .rs-truck-dealers .rs-portfolio-btn .rs-btn.has-circle {
+        width: 44px;
+        height: 44px;
+        background: var(--primary-color, #f5a623);
+      }
+      .rs-truck-dealers .rs-portfolio-btn .rs-btn.has-circle svg path {
+        fill: #142340;
+      }
+      @media only screen and (max-width: 1199px) {
+        .rs-truck-dealers .rs-portfolio-slider-wrapper {
+          padding: 0;
+        }
+      }
+      @media only screen and (max-width: 991px) {
+        .rs-truck-dealers.section-space {
+          padding-top: 80px;
+          padding-bottom: 80px;
+        }
+        .rs-truck-dealers-head {
+          flex-direction: column;
+          align-items: flex-start;
+          margin-bottom: 28px;
+        }
+      }
+      .rs-base-partners {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+        scroll-margin-top: 90px;
+        width: 100%;
+      }
+      .rs-base-partners.section-space {
+        padding-top: 80px;
+        padding-bottom: 80px;
+      }
+      .rs-base-partners-head {
+        margin-bottom: 40px;
+      }
+      .rs-base-partners .rs-section-subtitle {
+        color: var(--primary-color, #f5a623);
+        background: none;
+        padding: 0;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 13px;
+        font-weight: 600;
+      }
+      .rs-base-partners .rs-section-title {
+        color: var(--rs-heading-color, #142340);
+        margin-bottom: 0;
+        text-transform: capitalize;
+      }
+      .rs-base-partners-slider {
+        width: 100%;
+        max-width: none;
+      }
+      .rs-base-partners .swiper {
+        width: 100%;
+        overflow: hidden;
+      }
+      .rs-base-partners .rs-brand-item {
+        background: var(--rs-bg-primary, #f4f5f7);
+        box-shadow: none;
+        height: 200px;
+        width: 100%;
+        cursor: grab;
+        overflow: hidden;
+      }
+      .rs-base-partners .rs-brand-thumb {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+      }
+      .rs-base-partners .rs-base-partners-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 0;
+        border: 0;
+        background: none;
+        cursor: grab;
+      }
+      .rs-base-partners .rs-brand-thumb img {
+        width: 110px;
+        max-width: 110px;
+        max-height: 110px;
+        height: auto;
+        object-fit: contain;
+        transform: scale(1);
+        transition: transform 0.45s ease;
+      }
+      #base-partners.rs-base-partners .rs-brand-item:hover .rs-brand-thumb img,
+      #base-partners.rs-base-partners .rs-brand-item:focus-within .rs-brand-thumb img,
+      #base-partners.rs-base-partners .rs-brand-item.is-scaled .rs-brand-thumb img,
+      #base-partners.rs-base-partners .rs-base-partners-link:active img {
+        transform: scale(1.2);
+      }
+      @media only screen and (max-width: 991px) {
+        .rs-base-partners.section-space {
+          padding-top: 60px;
+          padding-bottom: 60px;
+        }
+        .rs-base-partners-head {
+          margin-bottom: 28px;
+        }
+      }
+      html {
+        overflow-x: clip;
+      }
+      .wow {
+        visibility: visible;
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+        transition:
+          opacity 0.85s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.85s cubic-bezier(0.22, 1, 0.36, 1);
+        transition-delay: var(--wow-delay, 0s);
+      }
+      .wow.fadeInLeft,
+      .wow.fadeInRight,
+      .wow.fadeInUp,
+      [dir="rtl"] .wow.fadeInLeft,
+      [dir="rtl"] .wow.fadeInRight {
+        transform: translate3d(0, 36px, 0);
+      }
+      .wow.rs-reveal-fade {
+        transform: none;
+      }
+      .wow.animated,
+      .wow.is-inview {
+        visibility: visible;
+        opacity: 1;
+        transform: none;
+        animation: none !important;
+      }
+      .rs-about-four .rs-about-thumb.has-large-thumb {
+        visibility: visible;
+      }
+      img, video, svg {
+        max-width: 100%;
+      }
+      .rs-feature-three.has-four-items .rs-feature-item {
+        max-width: 100%;
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .wow,
+        .wow.fadeInLeft,
+        .wow.fadeInRight,
+        .wow.fadeInUp {
+          opacity: 1;
+          transform: none;
+          transition: none;
+        }
+      }
+      @media only screen and (max-width: 991px) {
+        .wow.fadeInLeft,
+        .wow.fadeInRight,
+        [dir="rtl"] .wow.fadeInLeft,
+        [dir="rtl"] .wow.fadeInRight {
+          transform: translate3d(0, 32px, 0);
+        }
+        .wow.animated,
+        .wow.is-inview {
+          transform: none;
+        }
+        .container {
+          max-width: 100%;
+          padding-inline-start: 16px;
+          padding-inline-end: 16px;
+        }
+        .rs-section-title-wrapper,
+        .rs-section-title,
+        .rs-section-subtitle,
+        .rs-about-content-wrapper,
+        .rs-about-tab,
+        .rs-about-tab-content,
+        .rs-services-wrapper,
+        .rs-services-four .rs-section-title-wrapper,
+        .rs-cta-content-wrapper,
+        .rs-progress-content,
+        .rs-truck-dealers-head,
+        .rs-base-partners-head,
+        .rs-feature-item,
+        .rs-highlight-stats,
+        .rs-highlight-stats .rs-category-item,
+        .rs-partners-gallery,
+        .rs-banner-four .rs-banner-content,
+        .rs-cta-two {
+          text-align: center;
+        }
+        .rs-section-subtitle.has-bg-field,
+        .rs-section-subtitle {
+          justify-content: center !important;
+          margin-inline: auto;
+        }
+        .rs-about-btn,
+        .rs-services-btn,
+        .rs-progress-btn,
+        .rs-banner-four .rs-banner-btn,
+        .rs-cta-input:has(button) {
+          display: flex;
+          justify-content: center;
+        }
+        .rs-about-tab .nav,
+        .rs-about-author-info,
+        .rs-truck-dealers-head {
+          justify-content: center;
+        }
+        .rs-feature-three .rs-feature-item {
+          margin-inline: auto;
+        }
+        .rs-about-four .rs-list-item ul {
+          display: inline-block;
+          text-align: start;
+        }
+        .section-space,
+        .rs-services-four .rs-services-wrapper.section-space {
+          padding-top: 60px;
+          padding-bottom: 60px;
+        }
+        #home.rs-banner-four,
+        .rs-banner-four .rs-banner-slider-wrapper,
+        .rs-banner-four .swiper,
+        .rs-banner-four .swiper-wrapper,
+        .rs-banner-four .swiper-slide,
+        .rs-banner-four .rs-banner-item-wrapper {
+          min-height: 100svh;
+          height: 100svh;
+        }
+        .rs-banner-four .rs-banner-item-wrapper {
+          padding-inline-start: 16px;
+          padding-inline-end: 16px;
+        }
+        .rs-banner-four .rs-banner-content {
+          text-align: center;
+        }
+        .rs-banner-four .rs-banner-btn {
+          display: flex;
+          justify-content: center;
+        }
+        .rs-banner-four .rs-banner-navigation {
+          display: none;
+        }
+        .rs-feature-three {
+          clip-path: none;
+        }
+        .rs-feature-three .row {
+          --bs-gutter-x: 16px;
+        }
+        .rs-feature-three .rs-feature-item,
+        .rs-feature-three.has-four-items .rs-feature-item {
+          max-width: 100%;
+        }
+        .rs-about-four .rs-about-thumb-wrapper {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 14px;
+          align-items: stretch;
+          width: 100%;
+          max-width: 560px;
+          margin-inline: auto;
+          position: relative;
+          top: auto;
+        }
+        .rs-about-four .rs-about-thumb-left-part,
+        .rs-about-four .rs-about-thumb-right-part {
+          width: 100%;
+          max-width: 100%;
+          min-width: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+        }
+        .rs-about-four .rs-about-thumb-left-part {
+          position: relative;
+          overflow: hidden;
+          border-radius: 12px;
+        }
+        .rs-about-four .rs-about-thumb,
+        .rs-about-four .rs-about-thumb.has-large-thumb {
+          width: 100%;
+          margin: 0;
+          overflow: hidden;
+          visibility: visible;
+          transform: none !important;
+          border-radius: 12px;
+        }
+        .rs-about-four .rs-about-thumb img,
+        .rs-about-four .rs-about-thumb.has-large-thumb img {
+          width: 100%;
+          max-width: 100%;
+          height: 220px;
+          max-height: none;
+          display: block;
+          object-fit: cover;
+          object-position: center;
+          transform: none !important;
+        }
+        .rs-about-four .rs-about-thumb.has-large-thumb img {
+          height: 280px;
+        }
+        .rs-about-four .rs-about-video-btn {
+          position: absolute;
+          inset: auto;
+          left: 50%;
+          top: 50%;
+          width: 52px;
+          height: 52px;
+          margin: 0;
+          transform: translate(-50%, -50%);
+          z-index: 3;
+          overflow: hidden;
+          border-radius: 50%;
+        }
+        [dir="rtl"] .rs-about-four .rs-about-video-btn {
+          left: 50%;
+          right: auto;
+          transform: translate(-50%, -50%);
+        }
+        .rs-about-four .rs-rotate-btn {
+          width: 52px;
+          height: 52px;
+          background: transparent;
+          border-radius: 50%;
+          overflow: hidden;
+        }
+        .rs-about-four .rs-rotate-btn .rs-text-circle-wrapper,
+        .rs-about-four .rs-rotate-btn .rs-circle-title,
+        .rs-about-four .rs-text-circle {
+          display: none !important;
+          width: 0 !important;
+          height: 0 !important;
+        }
+        .rs-about-four .rs-about-video-btn .rs-play-btn,
+        .rs-about-four .rs-about-video-btn .rs-play-btn.has-theme-red {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 52px;
+          height: 52px;
+          margin: 0;
+          font-size: 18px;
+          transform: translate(-50%, -50%);
+        }
+        .rs-about-four .rs-about-video-btn .rs-play-btn::before,
+        .rs-about-four .rs-about-video-btn .rs-play-btn::after {
+          width: 52px;
+          height: 52px;
+        }
+        .rs-about-four .rs-about-counter {
+          margin: 0;
+          padding: 10px 8px;
+          background: #fff;
+          border-radius: 12px;
+          box-shadow: 0 8px 24px rgba(20, 35, 64, 0.08);
+        }
+        .rs-about-four .rs-counter-number,
+        .rs-about-four .prefix {
+          font-size: 36px;
+        }
+        .rs-about-four .rs-about-tab .nav {
+          flex-wrap: wrap;
+          gap: 8px;
+        }
+        .rs-about-four .rs-about-tab .nav-item {
+          flex: 1 1 auto;
+        }
+        .rs-about-four .rs-about-tab .nav-link {
+          padding: 10px 14px;
+          height: auto;
+          width: 100%;
+        }
+        .rs-about-four .rs-about-tab .nav-item:not(:last-child) .nav-link::before {
+          content: none;
+        }
+        .rs-about-four .rs-about-wrapper {
+          margin-inline-start: 0;
+        }
+        .rs-header-two .rs-header-call {
+          display: none;
+        }
+        .rs-services-four .rs-section-title-wrapper,
+        .rs-services-four .rs-services-wrapper {
+          text-align: center;
+        }
+        .rs-services-four .rs-services-bg-thumb {
+          width: 100%;
+          -webkit-mask-image: none;
+          mask-image: none;
+          opacity: 0.18;
+        }
+        .rs-services-four .col-md-9 {
+          width: 100%;
+          max-width: 100%;
+        }
+        #partners.rs-partners-gallery .rs-partners-featured-wide,
+        #partners.rs-partners-gallery .rs-partners-featured-tall {
+          width: 100%;
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+        #partners.rs-partners-gallery .rs-partners-featured-wide .rs-portfolio-item,
+        #partners.rs-partners-gallery .rs-partners-featured-tall .rs-portfolio-item,
+        #partners.rs-partners-gallery .rs-partners-slider .rs-portfolio-item {
+          height: auto;
+          aspect-ratio: 16 / 10;
+          max-height: 260px;
+          border-radius: 12px;
+          overflow: hidden;
+        }
+        .rs-truck-dealers-head {
+          flex-wrap: wrap;
+          align-items: flex-start;
+        }
+        .rs-truck-dealers .rs-portfolio-thumb {
+          aspect-ratio: 4/5;
+        }
+        .rs-base-partners .rs-brand-thumb img {
+          width: 84px;
+          max-width: 84px;
+          max-height: 84px;
+        }
+        .rs-final-word-shell {
+          width: 100%;
+        }
+        .rs-progress-one .rs-progress-content {
+          padding: 28px 16px;
+        }
+        .rs-cta-two .rs-cta-wrapper {
+          padding-inline-start: 18px;
+          padding-inline-end: 18px;
+        }
+        #homecontact.rs-cta-two .rs-cta-thumb {
+          display: block;
+          text-align: center;
+          margin-top: 0;
+          margin-bottom: 24px;
+        }
+        #homecontact.rs-cta-two .rs-cta-thumb img {
+          width: min(100%, 280px);
+          max-height: 320px;
+        }
+        .rs-footer-two .rs-footer-widget-title {
+          margin-top: 8px;
+        }
+      }
+      @media only screen and (max-width: 575px) {
+        .rs-about-four .rs-about-thumb-wrapper {
+          grid-template-columns: 1fr;
+          max-width: 100%;
+        }
+        .rs-about-four .rs-about-thumb img,
+        .rs-about-four .rs-about-thumb.has-large-thumb img {
+          height: 210px;
+        }
+        .rs-banner-four .rs-banner-title {
+          font-size: 32px;
+          line-height: 1.2;
+        }
+        .rs-section-title {
+          font-size: 28px;
+        }
+        .loader .loader-container,
+        .loader .loader-container:before {
+          width: 130px;
+          height: 130px;
+        }
+        .loader .loader-icon img {
+          width: 68px;
+          max-width: 68px;
+          max-height: 68px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="rs-smoother-yes {% block body_class %}{% endblock %}">
+    {% include 'layout/loader.html' %}
+
+    <div id="rs-mouse">
+      <div id="cursor-ball"></div>
+    </div>
+
+    {% include 'layout/navbar.html' %}
+    {% include 'layout/offcanvas.html' %}
+
+    <main>
+      {% block content %}{% endblock content %}
+    </main>
+
+    {% include 'layout/footer.html' %}
+
+    <div class="backtotop-wrap cursor-pointer has-theme-red">
+      <svg class="backtotop-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+        <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
+      </svg>
+    </div>
+
+    <!-- JS here -->
+    <script src="{% static 'assets/js/vendor/jquery-3.7.1.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/waypoints.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/meanmenu.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/swiper.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/wow.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/magnific-popup.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/isotope.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/imagesloaded.pkgd.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/nice-select.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jarallax.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/ajax-form.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/easypie.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/headding-title.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/lenis.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/gsap.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/rs-anim-int.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/rs-scroll-trigger.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/rs-splitText.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.lettering.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/parallax-effect.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/jquery.appear.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/marquee.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/chart.umd.min.js' %}"></script>
+    <script src="{% static 'assets/js/plugins/nouislider.min.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/purecounter.js' %}"></script>
+    <script src="{% static 'assets/js/vendor/odometer.min.js' %}"></script>
+    <script>
+      if (window.matchMedia("(max-width: 991px)").matches) {
+        document.body.classList.remove("rs-smoother-yes");
+      }
+    </script>
+    <script src="{% static 'assets/js/main.js' %}"></script>
+    <script>
+      (function () {
+        if (window.gsap && window.ScrollTrigger) {
+          window.gsap.registerPlugin(window.ScrollTrigger);
+          window.addEventListener("scroll", function () {
+            window.ScrollTrigger.update();
+          }, { passive: true });
+          window.addEventListener("load", function () {
+            window.ScrollTrigger.refresh();
+          });
+        }
+        if (typeof WOW !== "undefined") {
+          new WOW({
+            boxClass: "wow",
+            animateClass: "animated",
+            offset: 80,
+            mobile: true,
+            live: true
+          }).init();
+        }
+        if (!("IntersectionObserver" in window)) return;
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            el.classList.add("animated", "is-inview");
+            io.unobserve(el);
+          });
+        }, { threshold: 0.12, rootMargin: "0px 0px -10% 0px" });
+        document.querySelectorAll(".wow").forEach(function (el) {
+          var delay = el.getAttribute("data-wow-delay");
+          if (delay) el.style.setProperty("--wow-delay", delay);
+          io.observe(el);
+        });
+      })();
+    </script>
+  </body>
+</html>

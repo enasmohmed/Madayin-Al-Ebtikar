@@ -1,0 +1,102 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<section id="home" class="rs-banner-area rs-banner-four p-relative rs-swiper">
+  <span id="hero"></span>
+  {% if hero_stroke %}
+  <div class="rs-banner-stroke-text">
+    <span>{{ hero_stroke }}</span>
+  </div>
+  {% endif %}
+  <div class="rs-banner-slider-wrapper">
+    <div
+      class="swiper"
+      data-clone-slides="false"
+      data-loop="true"
+      data-speed="2000"
+      data-autoplay="true"
+      data-dots-dynamic="false"
+      data-hover-pause="true"
+      data-effect="fade"
+      data-delay="1000"
+      data-item="1"
+      data-item-xl="1"
+      data-item-lg="1"
+      data-item-md="1"
+      data-item-sm="1"
+      data-item-xs="1"
+      data-item-mobile="1"
+      data-margin="30"
+      data-auto-height="false"
+      data-observer="true"
+      data-observe-parents="true"
+    >
+      <div class="swiper-wrapper">
+        {% if use_hero_video %}
+        {% with slide=hero_slides|first %}
+        <div class="swiper-slide">
+          <div class="rs-banner-item-wrapper">
+            <div class="rs-banner-bg-thumb">
+              <video autoplay muted loop playsinline disablePictureInPicture preload="metadata" style="width:100%;height:100%;object-fit:cover;">
+                {% if hero_banner.external_video_url %}
+                <source src="{{ hero_banner.external_video_url }}">
+                {% elif hero_banner.background_video %}
+                <source src="{{ hero_banner.background_video.url }}" type="video/mp4">
+                {% endif %}
+              </video>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-xxl-8 col-xl-10 col-lg-11">
+                  <div class="rs-banner-item">
+                    <div class="rs-banner-content">
+                      {% if slide and slide.tagline %}<span class="rs-banner-subtitle">{{ slide.tagline }}</span>{% endif %}
+                      {% if slide and slide.heading %}<h1 class="rs-banner-title">{{ slide.heading }}</h1>{% endif %}
+                      {% if slide and slide.lead %}
+                      <div class="rs-banner-descrip"><p>{{ slide.lead|linebreaksbr }}</p></div>
+                      {% endif %}
+                      {% if slide and slide.button_text or slide and slide.button_link %}
+                      <div class="rs-banner-btn">
+                        <a
+                          class="rs-btn has-theme-red has-icon has-bg has-skew"
+                          href="{% if slide and slide.button_link %}{{ slide.button_link }}{% else %}{% url 'home' %}#homecontact{% endif %}"
+                        >
+                          {% if slide and slide.button_text %}{{ slide.button_text }}{% else %}{% trans "Explore More" %}{% endif %}
+                          {% include 'partials/_skew_arrow.html' %}
+                        </a>
+                      </div>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endwith %}
+        {% elif hero_slides %}
+        {% for slide in hero_slides %}
+          {% if slide.background_image %}
+            {% include "sections/_hero_slide_item.html" with slide=slide bg_url=slide.background_image.url %}
+          {% elif not slide.extra_backgrounds.all %}
+            {% include "sections/_hero_slide_item.html" with slide=slide bg_url="" %}
+          {% endif %}
+          {% for ex in slide.extra_backgrounds.all %}
+            {% include "sections/_hero_slide_item.html" with slide=slide bg_url=ex.image.url %}
+          {% endfor %}
+        {% endfor %}
+        {% endif %}
+      </div>
+      {% if hero_slides %}
+      <div class="rs-banner-navigation">
+        <button class="swiper-button-prev rs-swiper-btn has-theme-red" type="button"><i class="fa-regular fa-arrow-left"></i></button>
+        <button class="swiper-button-next rs-swiper-btn has-theme-red" type="button"><i class="fa-regular fa-arrow-right"></i></button>
+      </div>
+      <div class="rs-banner-pagination d-block d-md-none">
+        <div class="swiper-pagination rs-pagination has-theme-red"></div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,82 @@
+{% load static %}
+{% load i18n %}
+
+{% if truck_dealers_section and truck_dealers %}
+<section id="truck-dealers" class="rs-portfolio-area rs-portfolio-eight rs-truck-dealers rs-swiper section-space primary-bg">
+  <div class="rs-truck-dealers-bg" data-background="{% static 'assets/images/bg/category-bg-01.png' %}"></div>
+  <div class="container">
+    <div class="rs-truck-dealers-head wow fadeInUp" data-wow-delay=".2s" data-wow-duration="1s">
+      <div class="rs-section-title-wrapper">
+        <span class="rs-section-subtitle">
+          {% if truck_dealers_section.label %}
+            {{ truck_dealers_section.label }}
+          {% else %}
+            {% trans "Truck dealers" %}
+          {% endif %}
+        </span>
+        {% if truck_dealers_section.title %}
+        <h2 class="rs-section-title">{{ truck_dealers_section.title }}</h2>
+        {% endif %}
+      </div>
+      {% if truck_dealers|length > 4 %}
+      <div class="rs-portfolio-navigation rs-truck-dealers-nav">
+        <button class="swiper-button-prev rs-swiper-btn has-theme-yellow" type="button">
+          <i class="fa-regular fa-arrow-left"></i>
+        </button>
+        <button class="swiper-button-next rs-swiper-btn has-theme-yellow" type="button">
+          <i class="fa-regular fa-arrow-right"></i>
+        </button>
+      </div>
+      {% endif %}
+    </div>
+    <div class="rs-portfolio-slider-wrapper wow fadeInUp rs-reveal-fade" data-wow-delay=".4s" data-wow-duration="1s">
+      <div
+        class="swiper"
+        data-clone-slides="false"
+        data-loop="{% if truck_dealers|length > 4 %}true{% else %}false{% endif %}"
+        data-autoplay="{% if truck_dealers|length > 4 %}true{% else %}false{% endif %}"
+        data-hover-pause="true"
+        data-dots-dynamic="false"
+        data-item="4"
+        data-item-xl="4"
+        data-item-lg="4"
+        data-item-md="2"
+        data-item-sm="2"
+        data-item-xs="1"
+        data-item-mobile="1"
+        data-margin="20"
+      >
+        <div class="swiper-wrapper">
+          {% for dealer in truck_dealers %}
+          <div class="swiper-slide">
+            <div class="rs-portfolio-item">
+              {% if dealer.image %}
+              <div class="rs-portfolio-thumb" data-background="{{ dealer.image.url }}"></div>
+              {% else %}
+              <div class="rs-portfolio-thumb rs-truck-dealers-placeholder"></div>
+              {% endif %}
+              <div class="rs-portfolio-content">
+                {% if dealer.title %}
+                <h3 class="rs-portfolio-title has-white">
+                  <a href="{{ dealer.card_href }}">{{ dealer.title }}</a>
+                </h3>
+                {% endif %}
+              </div>
+              <div class="rs-portfolio-btn">
+                <a
+                  class="rs-btn has-theme-yellow has-circle has-icon{% if dealer.opens_image_popup %} popup-image{% endif %}"
+                  href="{{ dealer.card_href }}"
+                  {% if dealer.link_url %}target="_blank" rel="noopener noreferrer"{% endif %}
+                >
+                  {% include 'partials/_skew_arrow.html' %}
+                </a>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

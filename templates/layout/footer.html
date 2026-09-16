@@ -1,0 +1,130 @@
+{% load static %}
+{% load i18n %}
+{% now "Y" as footer_year %}
+
+<footer>
+  <div class="rs-footer-area rs-footer-two has-space">
+    <div class="rs-footer-bg-thumb has-bg-none" data-background="{% static 'assets/images/bg/footer-bg-03.png' %}"></div>
+    <div class="rs-footer-top">
+      <div class="container">
+        <div class="row g-5">
+          <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6">
+            <div class="rs-footer-widget footer-2-col-1">
+              <div class="rs-footer-widget-logo mb-25">
+                <a href="{% url 'home' %}">
+                  <img
+                    src="{% if footer_data.logo_url %}{{ footer_data.logo_url }}{% else %}{{ site_settings.logo_url }}{% endif %}"
+                    alt="{{ footer_data.site_name|default:site_settings.site_name }}"
+                  >
+                </a>
+              </div>
+              <div class="rs-footer-widget-content">
+                {% if footer_data.description %}
+                <p class="rs-footer-widget-description">{{ footer_data.description }}</p>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6">
+            <div class="rs-footer-widget footer-2-col-2">
+              <h5 class="rs-footer-widget-title">{% trans "Useful Links" %}</h5>
+              <div class="rs-footer-widget-content">
+                <div class="rs-footer-widget-links has-theme-red">
+                  <ul>
+                    {% for link in footer_data.quick_links_col1 %}
+                    <li><a href="{{ link.href }}">{{ link.label }}</a></li>
+                    {% endfor %}
+                    {% for link in footer_data.quick_links_col2 %}
+                    <li><a href="{{ link.href }}">{{ link.label }}</a></li>
+                    {% endfor %}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6">
+            <div class="rs-footer-widget footer-2-col-3">
+              <h5 class="rs-footer-widget-title">{% trans "Office Address" %}</h5>
+              <div class="rs-footer-widget-content">
+                <div class="rs-footer-widget-meta">
+                  {% if footer_data.address %}
+                  <div class="rs-footer-widget-address">
+                    {% if footer_data.map_url %}
+                    <a target="_blank" rel="noopener noreferrer" href="{{ footer_data.map_url }}">{{ footer_data.address }}</a>
+                    {% else %}
+                    <a href="#">{{ footer_data.address }}</a>
+                    {% endif %}
+                  </div>
+                  {% endif %}
+                  {% if footer_data.email %}
+                  <h5 class="rs-footer-widget-title">{% trans "Email Address" %}</h5>
+                  <div class="rs-footer-widget-email">
+                    <a href="mailto:{{ footer_data.email }}">{{ footer_data.email }}</a>
+                  </div>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xxl-3 col-xl-3 col-lg-3 col-md-4 col-sm-6">
+            <div class="rs-footer-widget footer-2-col-4">
+              <h5 class="rs-footer-widget-title">{% trans "Phone Number" %}</h5>
+              <div class="rs-footer-widget-content">
+                <div class="rs-footer-widget-contact-info">
+                  <div class="rs-footer-widget-number">
+                    {% if footer_data.phone_landline %}
+                    <span><a href="tel:{{ footer_data.phone_landline|cut:' ' }}">{{ footer_data.phone_landline }}</a></span>
+                    {% endif %}
+                    {% if footer_data.phone_mobile %}
+                    <span><a href="tel:{{ footer_data.phone_mobile|cut:' ' }}">{{ footer_data.phone_mobile }}</a></span>
+                    {% endif %}
+                  </div>
+                </div>
+                {% if footer_data.social_links %}
+                <h5 class="rs-footer-widget-title">{% trans "Follow Us" %}</h5>
+                <div class="rs-footer-widget-social">
+                  <div class="rs-theme-social has-theme-red">
+                    {% for item in footer_data.social_links %}
+                    <a href="{{ item.href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ item.label }}">
+                      {% if item.modifier == 'facebook' %}<i class="ri-facebook-fill"></i>
+                      {% elif item.modifier == 'instagram' %}<i class="ri-instagram-line"></i>
+                      {% elif item.modifier == 'x' %}<i class="ri-twitter-x-line"></i>
+                      {% elif item.modifier == 'youtube' %}<i class="ri-youtube-fill"></i>
+                      {% elif item.modifier == 'linkedin' %}<i class="ri-linkedin-fill"></i>
+                      {% elif item.modifier == 'whatsapp' %}<i class="ri-whatsapp-fill"></i>
+                      {% elif item.modifier == 'snapchat' %}<i class="ri-snapchat-fill"></i>
+                      {% elif item.modifier == 'tiktok' %}<i class="ri-tiktok-fill"></i>
+                      {% else %}<i class="ri-share-line"></i>
+                      {% endif %}
+                    </a>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rs-footer-copyright-area rs-copyright-one">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-xl-12">
+            <div class="rs-footer-copyright has-theme-red text-center">
+              {% if footer_data.copyright_text %}
+              <p>{{ footer_data.copyright_text }}</p>
+              {% else %}
+              <p>
+                {% blocktrans with year=footer_year site_name=footer_data.site_name|default:site_settings.site_name %}
+                © {{ year }} {{ site_name }}. All rights reserved.
+                {% endblocktrans %}
+              </p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

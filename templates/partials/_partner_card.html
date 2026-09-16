@@ -1,0 +1,28 @@
+<div class="rs-portfolio-item">
+  {% if partner.display_image %}
+  <div class="rs-portfolio-bg-thumb" data-background="{{ partner.display_image.url }}" style="background-image: url('{{ partner.display_image.url }}');"></div>
+  {% else %}
+  <div class="rs-portfolio-bg-thumb rs-partners-placeholder"></div>
+  {% endif %}
+  <div class="rs-portfolio-content">
+    {% if partner.tag %}
+    <div class="rs-portfolio-tag">
+      <a href="{{ partner.card_href }}">{{ partner.tag }}</a>
+    </div>
+    {% endif %}
+    {% if partner.name %}
+    <h3 class="rs-portfolio-title underline has-white">
+      <a href="{{ partner.card_href }}">{{ partner.name }}</a>
+    </h3>
+    {% endif %}
+  </div>
+  <div class="rs-portfolio-btn">
+    <a
+      class="rs-btn has-theme-red has-circle has-icon{% if partner.opens_image_popup %} popup-image{% endif %}"
+      href="{{ partner.card_href }}"
+      {% if partner.link_url %}target="_blank" rel="noopener noreferrer"{% endif %}
+    >
+      {% include 'partials/_skew_arrow.html' %}
+    </a>
+  </div>
+</div>

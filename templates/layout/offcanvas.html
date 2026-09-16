@@ -1,0 +1,118 @@
+{% load i18n %}
+{% load static %}
+{% load nav_tags %}
+
+<!-- Offcanvas area start -->
+<div class="fix">
+  <div class="offcanvas-area has-theme-red" data-lenis-prevent>
+    <div class="offcanvas-wrapper">
+      <div class="offcanvas-content">
+        <div class="offcanvas-top d-flex justify-content-between align-items-center mb-25">
+          <div class="offcanvas-logo">
+            <a href="{% url 'home' %}">
+              <img src="{{ site_settings.logo_url }}" alt="{{ site_settings.site_name|default:'Logo' }}">
+            </a>
+          </div>
+          <div class="offcanvas-close">
+            <button class="offcanvas-close-icon animation--flip" type="button">
+              <span class="offcanvas-m-lines">
+                <span class="offcanvas-m-line line--1"></span>
+                <span class="offcanvas-m-line line--2"></span>
+                <span class="offcanvas-m-line line--3"></span>
+              </span>
+            </button>
+          </div>
+        </div>
+        {% if footer_data.description %}
+        <div class="offcanvas-about mb-30 d-none d-sm-block">
+          <p>{{ footer_data.description }}</p>
+        </div>
+        {% endif %}
+        {% if footer_our_work %}
+        <div class="offcanvas-gallery d-none d-sm-block">
+          <div class="offcanvas-gallery-thumb-wrapper">
+            {% for item in footer_our_work %}
+            <div class="offcanvas-popup-thumb">
+              <a class="popup-image" href="{{ item.image_url }}">
+                <img src="{{ item.image_url }}" alt="{{ item.alt|default:'' }}">
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        {% endif %}
+        <div class="mobile-menu">
+          <div class="rs-offcanvas-menu mb-25">
+            <nav></nav>
+          </div>
+        </div>
+        <div class="offcanvas-contact mb-30">
+          <h4 class="offcanvas-title-meta">{% trans "Contact Info" %}</h4>
+          <ul>
+            {% if site_settings.address %}
+            <li class="d-flex align-items-center gap-15">
+              <div class="offcanvas-contact-icon">
+                <i class="ri-map-pin-line"></i>
+              </div>
+              <div class="offcanvas-contact-text">
+                <a href="#">{{ site_settings.address }}</a>
+              </div>
+            </li>
+            {% endif %}
+            {% if site_settings.phone_mobile or site_settings.phone_landline %}
+            <li class="d-flex align-items-center gap-15">
+              <div class="offcanvas-contact-icon">
+                <i class="ri-phone-line"></i>
+              </div>
+              <div class="offcanvas-contact-text">
+                {% if site_settings.phone_mobile %}
+                <a href="tel:{{ site_settings.phone_mobile|cut:' ' }}">{{ site_settings.phone_mobile }}</a>
+                {% endif %}
+                {% if site_settings.phone_landline %}
+                <a href="tel:{{ site_settings.phone_landline|cut:' ' }}">{{ site_settings.phone_landline }}</a>
+                {% endif %}
+              </div>
+            </li>
+            {% endif %}
+            {% if site_settings.email %}
+            <li class="d-flex align-items-center gap-15">
+              <div class="offcanvas-contact-icon">
+                <i class="ri-mail-line"></i>
+              </div>
+              <div class="offcanvas-contact-text">
+                <a href="mailto:{{ site_settings.email }}">{{ site_settings.email }}</a>
+              </div>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+        {% if footer_data.social_links %}
+        <div class="offcanvas-social">
+          <h4 class="offcanvas-title-meta">{% trans "Subscribe & Follow" %}</h4>
+          <ul>
+            {% for item in footer_data.social_links %}
+            <li>
+              <a href="{{ item.href }}" target="_blank" rel="noopener noreferrer" aria-label="{{ item.label }}">
+                {% if item.modifier == 'facebook' %}<i class="fab fa-facebook-f"></i>
+                {% elif item.modifier == 'instagram' %}<i class="fab fa-instagram"></i>
+                {% elif item.modifier == 'x' %}<i class="fab fa-twitter"></i>
+                {% elif item.modifier == 'youtube' %}<i class="fab fa-youtube"></i>
+                {% elif item.modifier == 'linkedin' %}<i class="fab fa-linkedin"></i>
+                {% elif item.modifier == 'whatsapp' %}<i class="fab fa-whatsapp"></i>
+                {% elif item.modifier == 'snapchat' %}<i class="fab fa-snapchat-ghost"></i>
+                {% elif item.modifier == 'tiktok' %}<i class="fab fa-tiktok"></i>
+                {% else %}<i class="fab fa-share-alt"></i>
+                {% endif %}
+              </a>
+            </li>
+            {% endfor %}
+          </ul>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="offcanvas-overlay"></div>
+<div class="offcanvas-overlay-white"></div>
+<!-- Offcanvas area end -->

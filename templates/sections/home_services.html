@@ -1,0 +1,87 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% if services_section %}
+<section id="homeservices" class="rs-servcies-area rs-services-four">
+  <span id="services"></span>
+  <div
+    class="rs-services-bg-thumb"
+    data-background="{% if services_section.side_image %}{{ services_section.side_image.url }}{% else %}{% static 'assets/images/bg/services-bg-02.png' %}{% endif %}"
+  ></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xxl-8 col-xl-7 col-lg-8 col-md-9">
+        <div class="rs-services-wrapper section-space">
+          <div class="rs-section-title-wrapper wow fadeInUp" data-wow-delay=".2s" data-wow-duration="1s">
+            {% trans "Our Awesome Services" as default_services_label %}
+            <span class="rs-section-subtitle has-bg-field justify-content-start">
+              {{ services_section.label|default:default_services_label }}
+            </span>
+            <h2 class="rs-section-title rs-split-text-enable split-in-fade mb-25">
+              {% if services_section.title %}
+                {{ services_section.title }}
+              {% else %}
+                {% trans "We provide essential services for any industry" %}
+              {% endif %}
+            </h2>
+            {% if services_section.subtitle %}
+            <p class="descrip">{{ services_section.subtitle }}</p>
+            {% endif %}
+          </div>
+          {% if services_cards %}
+          <div class="rs-services-content-wrapper">
+            {% for card in services_cards %}
+            {% url 'home' as home_url %}
+            {% firstof card.link_url home_url|add:'#homecontact' as card_link %}
+            <div class="rs-services-item wow fadeInUp" data-wow-delay=".{{ forloop.counter|add:2 }}s" data-wow-duration="1s">
+              <div class="rs-services-content">
+                <span class="rs-services-count-number">
+                  {{ forloop.counter|stringformat:"02d" }}
+                </span>
+                {% if card.intro or card.bullet_lines %}
+                <div class="rs-services-text">
+                  {% if card.intro %}
+                  <p>{{ card.intro }}</p>
+                  {% endif %}
+                  {% if card.bullet_lines %}
+                  <ul class="rs-services-points">
+                    {% for line in card.bullet_lines %}
+                    <li><i class="fa-regular fa-check"></i>{{ line }}</li>
+                    {% endfor %}
+                  </ul>
+                  {% endif %}
+                </div>
+                {% endif %}
+              </div>
+              <div class="rs-services-icon-btn">
+                <a class="rs-btn has-icon has-transparent-btn" href="{{ card_link }}">
+                  <span class="icon-box">
+                    <svg class="icon-first" xmlns="http://www.w3.org/2000/svg" width="31" height="16" viewBox="0 0 31 16" fill="none">
+                      <path d="M30.7071 8.70711C31.0976 8.31659 31.0976 7.68342 30.7071 7.2929L24.3431 0.928934C23.9526 0.53841 23.3195 0.53841 22.9289 0.928934C22.5384 1.31946 22.5384 1.95262 22.9289 2.34315L28.5858 8L22.9289 13.6569C22.5384 14.0474 22.5384 14.6805 22.9289 15.0711C23.3195 15.4616 23.9526 15.4616 24.3431 15.0711L30.7071 8.70711ZM-8.74228e-08 9L30 9L30 7L8.74228e-08 7L-8.74228e-08 9Z" fill="white"></path>
+                    </svg>
+                    <svg class="icon-second" xmlns="http://www.w3.org/2000/svg" width="31" height="16" viewBox="0 0 31 16" fill="none">
+                      <path d="M30.7071 8.70711C31.0976 8.31659 31.0976 7.68342 30.7071 7.2929L24.3431 0.928934C23.9526 0.53841 23.3195 0.53841 22.9289 0.928934C22.5384 1.31946 22.5384 1.95262 22.9289 2.34315L28.5858 8L22.9289 13.6569C22.5384 14.0474 22.5384 14.6805 22.9289 15.0711C23.3195 15.4616 23.9526 15.4616 24.3431 15.0711L30.7071 8.70711ZM-8.74228e-08 9L30 9L30 7L8.74228e-08 7L-8.74228e-08 9Z" fill="white"></path>
+                    </svg>
+                  </span>
+                </a>
+              </div>
+            </div>
+            {% endfor %}
+            <div class="rs-services-btn wow fadeInUp" data-wow-delay=".6s" data-wow-duration="1s">
+              <a class="rs-btn has-theme-red has-icon has-bg has-skew" href="{% url 'home' %}#homecontact">
+                {% trans "Explore More" %}
+                {% include 'partials/_skew_arrow.html' %}
+              </a>
+            </div>
+          </div>
+          {% endif %}
+          {% if services_section.footer_note %}
+          <p class="mt-4">{{ services_section.footer_note|linebreaksbr }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endif %}

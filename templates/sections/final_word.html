@@ -1,0 +1,45 @@
+{% load i18n %}
+{% load static %}
+{% get_current_language as LANGUAGE_CODE %}
+{% if final_word_section %}
+{% with paragraphs=final_word_section.paragraphs %}
+<section id="final-word" class="rs-progress-area rs-progress-one section-space-bottom">
+  <div class="rs-final-word-shell">
+    <div class="rs-progress-wrapper wow fadeInLeft" data-wow-delay=".3s" data-wow-duration="1s">
+      <div class="rs-progress-bg-thumb">
+        <img
+          src="{% if final_word_section.image %}{{ final_word_section.image.url }}{% else %}{% static 'assets/images/progress/progress-thumb-02.png' %}{% endif %}"
+          alt=""
+        >
+      </div>
+      <div class="rs-progress-content">
+        {% trans "Final word" as default_final_label %}
+        <span class="rs-progress-subtitle">
+          {{ final_word_section.label|default:default_final_label }}
+        </span>
+        {% if final_word_section.title %}
+        <h3 class="rs-progress-title">{{ final_word_section.title }}</h3>
+        {% endif %}
+        {% if paragraphs %}
+        <div class="row g-4 rs-final-word-paragraphs">
+          {% for paragraph in paragraphs %}
+          <div class="col-xl-4 col-lg-4 col-md-6">
+            <p>{{ paragraph|linebreaksbr }}</p>
+          </div>
+          {% endfor %}
+        </div>
+        {% elif final_word_section.body %}
+        <div>{{ final_word_section.body|safe }}</div>
+        {% endif %}
+        <div class="rs-progress-btn">
+          <a class="rs-btn has-theme-red has-icon has-bg has-skew" href="{% url 'home' %}#homecontact">
+            {% trans "Explore More" %}
+            {% include 'partials/_skew_arrow.html' %}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endwith %}
+{% endif %}

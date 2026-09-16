@@ -1,0 +1,83 @@
+{% load static %}
+{% load i18n %}
+
+{% if highlight_items %}
+<section class="rs-category-area rs-category-one rs-highlight-stats section-space primary-bg">
+  <div class="rs-category-bg-thumb" data-background="{% static 'assets/images/bg/category-bg-01.png' %}"></div>
+  <div class="container">
+    {% if highlights_section.label or highlights_section.title or highlights_section.subtitle %}
+    <div class="row">
+      <div class="col-xl-8">
+        <div class="rs-section-title-wrapper section-title-space wow fadeInUp" data-wow-delay=".2s" data-wow-duration="1s">
+          {% if highlights_section.label %}
+          <span class="rs-section-subtitle has-bg-field justify-content-start">
+            {{ highlights_section.label }}
+          </span>
+          {% endif %}
+          {% if highlights_section.title %}
+          <h2 class="rs-section-title rs-split-text-enable split-in-fade">
+            {{ highlights_section.title }}
+          </h2>
+          {% endif %}
+          {% if highlights_section.subtitle %}
+          <p class="descrip">{{ highlights_section.subtitle|linebreaksbr }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% endif %}
+    <div class="row g-4 g-xl-5">
+      {% for item in highlight_items %}
+      <div class="col-xl-3 col-lg-6 col-md-6">
+        <div
+          class="rs-category-item wow fadeInUp has-custom-count"
+          data-wow-delay="{% cycle '.3s' '.5s' '.7s' '.9s' %}"
+          data-wow-duration="1s"
+        >
+          <div class="rs-category-icon">
+            {% if item.icon_classes %}
+            <i class="{{ item.icon_classes }}" aria-hidden="true"></i>
+            {% else %}
+            <i class="fa-regular fa-check" aria-hidden="true"></i>
+            {% endif %}
+          </div>
+          <div class="rs-category-content">
+            {% if item.number_parts %}
+            <h5 class="rs-category-title rs-highlight-number">
+              {% if item.number_parts.prefix %}<span class="prefix">{{ item.number_parts.prefix }}</span>{% endif %}
+              <span class="rs-counter-number odometer" data-count="{{ item.number_parts.digits }}">00</span>
+              {% if item.number_parts.suffix %}<span class="suffix">{{ item.number_parts.suffix }}</span>{% endif %}
+            </h5>
+            {% elif item.number %}
+            <h5 class="rs-category-title rs-highlight-number">{{ item.number }}</h5>
+            {% elif item.title %}
+            <h5 class="rs-category-title">{{ item.title }}</h5>
+            {% endif %}
+            {% if item.title %}
+            <p class="descrip">{{ item.title }}</p>
+            {% endif %}
+            {% if item.text %}
+            <p class="descrip">{{ item.text|linebreaksbr }}</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+<script>
+  (function () {
+    var section = document.querySelector(".rs-highlight-stats");
+    if (!section || !("IntersectionObserver" in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        section.classList.add("is-inview");
+        io.disconnect();
+      });
+    }, { threshold: 0.15 });
+    io.observe(section);
+  })();
+</script>
+{% endif %}

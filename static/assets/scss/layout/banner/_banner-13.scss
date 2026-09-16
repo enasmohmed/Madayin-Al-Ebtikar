@@ -1,0 +1,248 @@
+@use '../../utils' as *;
+/*----------------------------------------*/
+/*  3.1.13 Banner Style 13
+/*----------------------------------------*/
+
+.rs-banner-thirteen {
+    overflow-x: clip;
+    .rs-banner-shape{
+        position: absolute;
+        inset-inline-start: 635px;
+        z-index: 2;
+        top: 35px;
+        @media #{$md}{
+            inset-inline-start: auto;
+            inset-inline-end: 0;
+        }
+        @media #{$sm}{
+            display: none;
+        }
+    }
+    .rs-banner-bg-thumb {
+        position: absolute;
+        width: 47%;
+        height: 100%;
+        top: 0;
+        inset-inline-end: 0;
+        background-position: center center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: 1;
+        @media #{$laptop}{
+            width: 46%;
+        }
+        @media #{$lg}{
+            width: 45%;
+        }
+        @media #{$md}{
+            width: 100%;
+            position: static;
+            height: 400px;
+            top: auto;
+            bottom: 0;
+        }
+        @media #{$sm}{
+            height: 350px;
+        }
+        @media #{$xs}{
+            height: 300px;
+        }
+    }
+    .rs-banner-slider-wrapper{
+        position: relative;
+        &:hover{
+            .rs-banner-navigation{
+                button{
+                    visibility: visible;
+                    opacity: 1;
+                    inset-inline-start: 50px;
+                    &.swiper-button-next{
+                        inset-inline-start: auto;
+                        inset-inline-end: 50px;
+                    }
+                }
+            }
+        }
+    }
+    .rs-banner-item-wrapper{
+        background: var(--rs-theme-cyan);
+        position: relative;
+        padding-top: 120px;
+        padding-inline-start: 90px;
+        // height: 800px;
+        @media #{$laptop}{
+            padding-inline-start: 60px;
+        }
+        @media #{$lg}{
+            padding-inline-start: 0px;
+            padding-top: 90px;
+        }
+        @media #{$md}{
+            padding-top: 75px;
+        }
+    }
+    .rs-banner-item{
+        position: relative;
+    }
+    .rs-banner-content {
+	    max-width: 600px;
+        @media #{$lg}{
+            max-width: 500px;
+        }
+        @media #{$md}{
+            max-width: 100%;
+        }
+    }
+    .rs-banner-subtitle{
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--rs-white);
+        margin-bottom: 13px;
+        display: inline-block;
+        text-transform: uppercase;
+        @media #{$md}{
+            font-size: 18px;
+        }
+    }
+    .rs-banner-title{
+        color: var(--rs-white);
+        font-size: 60px;
+        line-height: 1.13;
+        text-transform: capitalize;
+        letter-spacing: -1px;
+        @media #{$laptop}{
+            font-size: 55px;
+        }
+        @media #{$xl}{
+            font-size: 50px;
+        }
+        @media #{$lg}{
+            font-size: 45px;
+        }
+        @media #{$md}{
+            font-size: 40px;
+        }
+    }
+    .rs-banner-descrip{
+        max-width: 630px;
+        margin: 25px 0 40px;
+        p{
+            color: var(--rs-white);
+            font-size: 20px;
+            font-weight: 500;
+        }
+    }
+    .rs-banner-btn-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+    .rs-banner-award-wrapper {
+        margin-top: 105px;
+        @media #{$lg}{
+            margin-top: 95px;
+        }
+        @media #{$md}{
+            margin-top: 50px;
+        }
+    }
+    .rs-banner-award-inner{
+        background-color: #03DDB4;
+        padding: 30px 30px 28px 30px;
+        display: inline-flex;
+        flex-direction: column;
+        width: 304px;
+        text-align: center;
+        @media #{$mobile}{
+            width: 100%;
+        }
+    }
+    .rs-banner-award-icon{
+        margin-bottom: 17px;
+    }
+    .rs-banner-award-title{
+        font-size: 20px;
+        color: var(--rs-white);
+        font-weight: 700;
+    }
+    .rs-banner-navigation{
+        display: flex;
+        gap: 10px;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(50%, -50%);
+        z-index: 1;
+        flex-direction: column;
+        @media #{$md}{
+            display: none;
+        }
+        @include rtl {
+             transform: translate(-150%, -50%);
+        }
+        button{
+            background-color: #03DDB4 ;
+            border-radius: 10px;
+            font-size: 18px;
+            z-index: 2;
+            transition: 0.5s;
+            width: 55px;
+            height: 80px;
+            z-index: 2;
+            transition: 0.5s;
+            &.swiper-button-next{
+                inset-inline-start: auto;
+                inset-inline-end: 40px;
+            }
+            &:hover{
+                background: var(--rs-white);
+                color: var(--rs-black);
+            }
+        }
+    }
+    .rs-banner-pagination{
+        display: none;
+        @media #{$md}{
+            display: block;
+        }
+        .rs-pagination.swiper-pagination {
+            position: absolute;
+            bottom: 40px;
+            .swiper-pagination-bullet{
+                background: var(--rs-theme-cyan);
+            }
+        }
+    }
+}
+
+// slider animation
+.rs-banner-thirteen {
+     .swiper-slide-active {
+         .rs-banner-subtitle,
+         .rs-banner-title,
+         .rs-banner-descrip,
+         .rs-banner-btn{
+            animation-fill-mode: both;
+            animation-name: fadeInUp;
+         }
+    }
+     .swiper-slide-active {
+        .rs-banner-subtitle{
+            animation-delay: .3s;
+            animation-duration: 0.7s;
+        }
+         .rs-banner-title {
+            animation-delay: .5s;
+            animation-duration: 0.9s;
+        }
+         .rs-banner-descrip {
+            animation-delay: .7s;
+            animation-duration: 1.1s;
+        }
+         .rs-banner-btn {
+            animation-delay: .9s;
+            animation-duration: 1.3s;
+        }
+    }
+}

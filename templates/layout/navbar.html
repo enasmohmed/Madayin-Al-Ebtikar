@@ -1,0 +1,19 @@
+{% load i18n %}
+{% load static %}
+{% load nav_tags %}
+{% get_current_language as LANGUAGE_CODE %}
+
+<!-- Header area start -->
+<header>
+  <div class="rs-header-area rs-header-two header-transparent has-bg-blue has-border rs-sticky-header" id="rs-sticky-header">
+    <div class="container-fluid">
+      {% include 'layout/_header_inner.html' with nav_id='mobile-menu' %}
+    </div>
+  </div>
+  <div class="rs-header-area rs-header-two header-transparent has-bg-blue has-border">
+    <div class="container-fluid">
+      {% include 'layout/_header_inner.html' with nav_id='mobile-menu-two' %}
+    </div>
+  </div>
+</header>
+<!-- Header area end -->

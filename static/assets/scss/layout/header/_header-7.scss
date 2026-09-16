@@ -1,0 +1,193 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  3.5.7 Header Style 7
+/*----------------------------------------*/
+
+.rs-header{
+    &-seven{
+        overflow-x: clip;
+        @media #{$laptop}{
+            padding-inline-start: 0px;
+            padding-inline-end: 0px;
+        }
+        .rs-header-inner {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 99;
+            @media #{$laptop}{
+                padding-inline-end: 35px;
+            }
+            @media #{$md}{
+                padding-inline-end: 15px;
+            }
+        }
+        .rs-header-logo{
+            position: relative;
+            z-index: 1;
+            img{
+                width: 48px;
+            }
+        }
+        .rs-header-call-wrapper {
+            height: 112px;
+            width: 295px;
+            background: var(--rs-theme-medium-yellow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            @media #{$laptop}{
+                display: none;
+            }
+        }
+        .rs-header-call-inner {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            @media #{$md}{
+                gap: 10px;
+            }
+        }
+        .rs-header-call-icon{
+            svg{
+                width: 40px;
+                height: 40px;
+                @media #{$md}{
+                    width: 30px;
+                    height: 30px;
+                }
+                path{
+                    fill: var(--rs-black);
+                }
+            }
+        }
+        .rs-header-call-content{
+            span{
+                font-size: 15px;
+                font-weight: 600;
+                margin-bottom: 3px;
+                display: inline-block;
+            }
+            p{
+                font-size: 20px;
+                font-weight: 600;
+                color: var(--rs-title-primary);
+                @media #{$md}{
+                    font-size: 18px;
+                }
+                a{
+                    &:hover{
+                        color: var(--rs-text-primary);
+                    }
+                }
+            }
+        }
+        .rs-header-logo-wrapper{
+            width: 145px;
+            height: 112px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--rs-black);
+            @media #{$laptop}{
+                width: 115px;
+            }
+            @media #{$xl}{
+                height: 100px;
+            }
+            @media #{$lg}{
+                height: 90px;
+            }
+            @media #{$md}{
+                height: 80px;
+                width: 80px;
+            }
+        }
+        .rs-header-menu{
+            margin-inline-end: auto;
+            margin-inline-start: 23px;
+        }
+        .rs-header-right{
+            display: flex;
+              gap: 30px;
+            align-items: center;
+        }
+        .main-menu {
+            li{
+                a{
+                    padding: 47px 20px;
+                    @media #{$xl}{
+                        padding: 41px 20px;
+                    }
+                }
+            }
+        }
+        .rs-header-search-inner{
+            top: 75px;
+            @media #{$xl}{
+			    top: 68px;
+		    }
+            @media #{$lg}{
+			    top: 64px;
+		    }
+            @media #{$md}{
+                top: 59px;
+            }
+            @media #{$xs}{
+                width: 250px;
+            }
+        }
+        .rs-header-btn{
+            @media #{$xs}{
+                display: none;
+            }
+        }
+        .rs-sticky{
+            .rs-header-left{
+                margin-inline-start: 0px;
+                margin-top: 0;
+            }
+            .rs-header-logo-wrapper{
+                height: 100px;
+                @media #{$laptop}{
+                    width: 300px;
+                }
+                @media #{$lg}{
+                    height: 90px;
+                }
+                @media #{$md}{
+                    height: 80px;
+                }
+                @media #{$mobile}{
+                    width: 190px;
+                }
+            }
+            .main-menu {
+                li{
+                    a{
+                        padding: 41px 20px;
+                    }
+                }
+                .submenu{
+                    li{
+                        a{
+                            padding: 15px 20px 15px 20px;
+                        }
+                    }
+                }
+                .mega-menu{
+                    li{
+                        a{
+                            padding-top: 15px;
+                            padding-bottom: 15px;
+                        }
+                    }
+                }
+            }
+            .rs-header-logo-wrapper{
+                border-bottom: 0;
+            }
+        }
+    }
+}

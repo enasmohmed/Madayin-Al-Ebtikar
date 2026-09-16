@@ -1,0 +1,89 @@
+{% load static %}
+{% load i18n %}
+
+{% if partners_section and partners %}
+<section id="partners" class="rs-portfolio-area rs-portfolio-three rs-partners-gallery section-space-bottom">
+  <span id="homeportfolio"></span>
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-8 col-lg-8">
+        <div class="rs-section-title-wrapper section-title-space text-center wow fadeInUp" data-wow-delay=".2s" data-wow-duration="1s">
+          <span class="rs-section-subtitle has-bg-field">
+            {% if partners_section.label %}
+              {{ partners_section.label }}
+            {% else %}
+              {% trans "Our Partners" %}
+            {% endif %}
+          </span>
+          {% if partners_section.title %}
+          <h2 class="rs-section-title rs-split-text-enable split-in-fade">
+            {{ partners_section.title }}
+          </h2>
+          {% endif %}
+          {% if partners_section.subtitle %}
+          <p>{{ partners_section.subtitle|linebreaksbr }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    {% if partner_featured_wide or partner_featured_tall %}
+    <div class="row rs-partners-featured-row wow fadeInUp" data-wow-delay=".35s" data-wow-duration="1s">
+      {% if partner_featured_wide %}
+      <div class="col-xl-8 col-lg-8 rs-partners-featured-wide">
+        {% include 'partials/_partner_card.html' with partner=partner_featured_wide %}
+      </div>
+      {% endif %}
+      {% if partner_featured_tall %}
+      <div class="col-xl-4 col-lg-4 rs-partners-featured-tall">
+        {% include 'partials/_partner_card.html' with partner=partner_featured_tall %}
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    {% if partner_slider %}
+    <div class="rs-partners-slider rs-swiper wow fadeInUp rs-reveal-fade" data-wow-delay=".5s" data-wow-duration="1s">
+      <div
+        class="swiper"
+        data-clone-slides="false"
+        data-loop="{% if partner_slider|length > 3 %}true{% else %}false{% endif %}"
+        data-autoplay="true"
+        data-hover-pause="true"
+        data-dots-dynamic="false"
+        data-item="3"
+        data-item-xl="3"
+        data-item-lg="3"
+        data-item-md="1"
+        data-item-sm="1"
+        data-item-xs="1"
+        data-item-mobile="1"
+        data-margin="30"
+        data-margin-md="12"
+        data-margin-sm="12"
+        data-margin-xs="12"
+        data-margin-mobile="12"
+      >
+        <div class="swiper-wrapper">
+          {% for partner in partner_slider %}
+          <div class="swiper-slide">
+            {% include 'partials/_partner_card.html' with partner=partner %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% if partner_slider|length > 3 %}
+      <div class="rs-partners-slider-nav">
+        <button class="swiper-button-prev rs-swiper-btn has-theme-red" type="button">
+          <i class="fa-regular fa-arrow-left"></i>
+        </button>
+        <button class="swiper-button-next rs-swiper-btn has-theme-red" type="button">
+          <i class="fa-regular fa-arrow-right"></i>
+        </button>
+      </div>
+      {% endif %}
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endif %}

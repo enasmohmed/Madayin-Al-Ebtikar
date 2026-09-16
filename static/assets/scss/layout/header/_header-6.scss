@@ -1,0 +1,142 @@
+@use '../../utils' as *;
+
+/*----------------------------------------*/
+/*  3.5.6 Header Style 6
+/*----------------------------------------*/
+
+.rs-header{
+    &-six{
+        overflow-x: clip;
+        @media #{$laptop}{
+            padding-inline-start: 0px;
+            padding-inline-end: 0px;
+        }
+        .rs-header-inner {
+            display: flex;
+            align-items: center;
+            position: relative;
+            z-index: 99;
+            padding-inline-end: 50px;
+            @media #{$md}{
+                padding-inline-end: 15px;
+            }
+        }
+        .rs-header-logo{
+            position: relative;
+            z-index: 1;
+            img{
+                @media #{$mobile}{
+                    width: 150px;                }
+            }
+        }
+        .rs-header-logo-wrapper{
+            width: 325px;
+            height: 112px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--rs-theme-cyan);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.41);
+            @media #{$xl}{
+                height: 100px;
+            }
+            @media #{$lg}{
+                width: 300px;
+                height: 90px;
+            }
+            @media #{$md}{
+                width: 210px;
+                height: 80px;
+            }
+            @media #{$mobile}{
+                width: 180px;
+                height: 80px;
+            }
+        }
+        .rs-header-menu{
+            margin-inline-end: auto;
+            margin-inline-start: 23px;
+        }
+        .rs-header-right{
+            display: flex;
+              gap: 30px;
+            align-items: center;
+        }
+        .main-menu {
+            li{
+                a{
+                    padding: 47px 20px;
+                    @media #{$xl}{
+                        padding: 41px 20px;
+                    }
+                }
+            }
+        }
+        .rs-header-search-inner{
+            top: 75px;
+            @media #{$xl}{
+			    top: 68px;
+		    }
+            @media #{$lg}{
+			    top: 64px;
+		    }
+            @media #{$md}{
+                top: 59px;
+            }
+            @media #{$xs}{
+                width: 250px;
+            }
+        }
+        .rs-header-btn{
+            @media #{$xl}{
+                display: none;
+            }
+        }
+        .rs-sticky{
+            .rs-header-left{
+                margin-inline-start: 0px;
+                margin-top: 0;
+            }
+            .rs-header-logo-wrapper{
+                height: 100px;
+                @media #{$laptop}{
+                    width: 300px;
+                }
+                @media #{$lg}{
+                    height: 90px;
+                }
+                @media #{$md}{
+                    height: 80px;
+                }
+                @media #{$mobile}{
+                    width: 190px;
+                }
+            }
+            .main-menu {
+                li{
+                    a{
+                        padding: 41px 20px;
+                    }
+                }
+                .submenu{
+                    li{
+                        a{
+                            padding: 15px 20px 15px 20px;
+                        }
+                    }
+                }
+                .mega-menu{
+                    li{
+                        a{
+                            padding-top: 15px;
+                            padding-bottom: 15px;
+                        }
+                    }
+                }
+            }
+            .rs-header-logo-wrapper{
+                border-bottom: 0;
+            }
+        }
+    }
+}

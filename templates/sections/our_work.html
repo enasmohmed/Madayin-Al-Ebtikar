@@ -1,0 +1,68 @@
+{% load static %}
+{% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
+
+{% if our_work_images %}
+<section id="homeportfolio" class="rs-portfolio-area rs-portfolio-three section-space-bottom">
+  <span id="our-work"></span>
+  <div class="container">
+    <div class="row justify-content-center g-5">
+      <div class="col-xl-8 col-lg-8">
+        <div class="rs-section-title-wrapper section-title-space text-center">
+          <span class="rs-section-subtitle has-bg-field">
+            {% trans "our Portfolio" %}
+          </span>
+          <h2 class="rs-section-title rs-split-text-enable split-in-fade">
+            {% if site_settings.our_work_section_title %}
+              {{ site_settings.our_work_section_title }}
+            {% else %}
+              {% trans "Recently Completed Project" %}
+            {% endif %}
+          </h2>
+          {% if site_settings.our_work_section_subtitle %}
+          <p>{{ site_settings.our_work_section_subtitle }}</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <div class="row g-5">
+      {% for item in our_work_images %}
+      <div class="{% if forloop.first %}col-xl-8 col-lg-8{% else %}col-xl-4 col-lg-4{% endif %}">
+        <div class="rs-portfolio-item">
+          {% if item.image %}
+          <div class="rs-portfolio-bg-thumb" data-background="{{ item.image.url }}"></div>
+          {% elif item.video %}
+          <div class="rs-portfolio-bg-thumb">
+            <video src="{{ item.video.url }}" muted playsinline loop autoplay preload="metadata" style="width:100%;height:100%;object-fit:cover;"></video>
+          </div>
+          {% endif %}
+          <div class="rs-portfolio-content">
+            <div class="rs-portfolio-tag">
+              <a href="{% if item.image %}{{ item.image.url }}{% elif item.video %}{{ item.video.url }}{% else %}#{% endif %}">
+                {{ site_settings.site_name }}
+              </a>
+            </div>
+            <h3 class="rs-portfolio-title underline has-white">
+              <a href="{% if item.image %}{{ item.image.url }}{% elif item.video %}{{ item.video.url }}{% else %}#{% endif %}">
+                {% trans "Project" %} {{ forloop.counter }}
+              </a>
+            </h3>
+          </div>
+          <div class="rs-portfolio-btn">
+            {% if item.image %}
+            <a class="rs-btn has-theme-red has-circle has-icon popup-image" href="{{ item.image.url }}">
+              {% include 'partials/_skew_arrow.html' %}
+            </a>
+            {% elif item.video %}
+            <a class="rs-btn has-theme-red has-circle has-icon popup-image" href="{{ item.video.url }}">
+              {% include 'partials/_skew_arrow.html' %}
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endif %}
