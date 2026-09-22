@@ -17,8 +17,6 @@ from pages.models import (
     HomePartner,
     HomeTruckDealersSection,
     HomeTruckDealer,
-    HomeBasePartnersSection,
-    HomeBasePartner,
     MissionVisionValuesBlock,
     MVVTabPanel,
     MVVTabBullet,
@@ -397,15 +395,6 @@ class Command(BaseCommand):
                 order=order,
                 is_active=True,
             )
-
-        HomeBasePartner.objects.all().delete()
-        HomeBasePartnersSection.objects.all().delete()
-        HomeBasePartnersSection.objects.create(
-            language="en",
-            is_active=True,
-            label="",
-            title="Base Partners",
-        )
 
         cache.clear()
         self.stdout.write(self.style.SUCCESS("Madayin company profile data loaded."))

@@ -23,8 +23,6 @@ from .models import (
     HomePartner,
     HomeTruckDealersSection,
     HomeTruckDealer,
-    HomeBasePartnersSection,
-    HomeBasePartner,
     MissionVisionValuesBlock,
     MVVPartnerLogo,
     MVVTabPanel,
@@ -326,49 +324,6 @@ class HomeTruckDealersSectionAdmin(TranslationAdmin):
     @admin.display(description=_("Dealers"))
     def dealer_count(self, obj):
         return obj.dealers.filter(is_active=True).count()
-
-
-class HomeBasePartnerInline(TranslationTabularInline):
-    model = HomeBasePartner
-    extra = 4
-    ordering = ("order", "id")
-    readonly_fields = ("thumb",)
-    fields = ("thumb", "image", "title", "link_url", "order", "is_active")
-
-    @admin.display(description=_("Preview"))
-    def thumb(self, obj):
-        if not obj.pk or not obj.image:
-            return "—"
-        return format_html(
-            '<img src="{}" alt="" width="72" height="40" '
-            'style="object-fit:contain;background:#f4f5f7;padding:4px;border-radius:4px"/>',
-            obj.image.url,
-        )
-
-
-@admin.register(HomeBasePartnersSection)
-class HomeBasePartnersSectionAdmin(TranslationAdmin):
-    list_display = ("title", "language", "is_active", "logo_count")
-    list_filter = ("is_active", "language")
-    inlines = (HomeBasePartnerInline,)
-    fieldsets = (
-        (
-            _("Section heading"),
-            {
-                "fields": ("label", "title"),
-                "description": _(
-                    "Title comes from admin (e.g. Base Partners). The small tag "
-                    "above it is optional — leave it empty to hide it. Add as many "
-                    "logos as you need; they slide 6 at a time."
-                ),
-            },
-        ),
-        (_("Visibility"), {"fields": ("language", "is_active")}),
-    )
-
-    @admin.display(description=_("Logos"))
-    def logo_count(self, obj):
-        return obj.logos.filter(is_active=True).count()
 
 
 class HomeOfferItemInline(TranslationStackedInline):

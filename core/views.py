@@ -18,8 +18,6 @@ from pages.models import (
     HomePartner,
     HomeTruckDealersSection,
     HomeTruckDealer,
-    HomeBasePartnersSection,
-    HomeBasePartner,
     MissionVisionValuesBlock,
     MVVPartnerLogo,
     MVVTabPanel,
@@ -132,20 +130,6 @@ class HomeView(FormView):
                 return candidate
         return section or base_qs.first()
 
-    def _base_partners_section_for_request(self):
-        lang = getattr(self.request, "LANGUAGE_CODE", None) or "en"
-        logo_qs = HomeBasePartner.objects.filter(is_active=True).order_by("order", "id")
-        base_qs = HomeBasePartnersSection.objects.filter(is_active=True).prefetch_related(
-            Prefetch("logos", queryset=logo_qs),
-        )
-        section = base_qs.filter(language=lang).first()
-        if section and section.logos.all():
-            return section
-        for candidate in base_qs.order_by("-language", "id"):
-            if candidate.logos.all():
-                return candidate
-        return section or base_qs.first()
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -224,13 +208,6 @@ class HomeView(FormView):
         context["truck_dealers_section"] = truck_dealers_section
         context["truck_dealers"] = (
             list(truck_dealers_section.dealers.all()) if truck_dealers_section else []
-        )
-        base_partners_section = self._base_partners_section_for_request()
-        context["base_partners_section"] = base_partners_section
-        context["base_partners"] = (
-            [logo for logo in base_partners_section.logos.all() if logo.image]
-            if base_partners_section
-            else []
         )
         site_name = ""
         if isinstance(context.get("site_settings"), dict):

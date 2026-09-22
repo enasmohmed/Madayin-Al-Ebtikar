@@ -28,8 +28,6 @@ HOME_ANCHOR_ALIASES = {
     "simply-contact": "homecontact",
     "partners": "partners",
     "our-partners": "partners",
-    "base-partners": "base-partners",
-    "basepartners": "base-partners",
     "truck-dealers": "truck-dealers",
     "truckdealers": "truck-dealers",
     "dealers": "truck-dealers",

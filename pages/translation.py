@@ -10,8 +10,6 @@ from .models import (
     HomePartner,
     HomeTruckDealersSection,
     HomeTruckDealer,
-    HomeBasePartnersSection,
-    HomeBasePartner,
     MissionVisionValuesBlock,
     MVVPartnerLogo,
     MVVTabPanel,
@@ -85,14 +83,6 @@ class HomeTruckDealerTranslationOptions(TranslationOptions):
     fields = ("title",)
 
 
-class HomeBasePartnersSectionTranslationOptions(TranslationOptions):
-    fields = ("label", "title")
-
-
-class HomeBasePartnerTranslationOptions(TranslationOptions):
-    fields = ("title",)
-
-
 translator.register(HeroSlide, HeroSlideTranslationOptions)
 translator.register(HomeOfferItem, HomeOfferItemTranslationOptions)
 translator.register(HomeHighlightsSection, HomeHighlightsSectionTranslationOptions)
@@ -109,5 +99,3 @@ translator.register(HomePartnersSection, HomePartnersSectionTranslationOptions)
 translator.register(HomePartner, HomePartnerTranslationOptions)
 translator.register(HomeTruckDealersSection, HomeTruckDealersSectionTranslationOptions)
 translator.register(HomeTruckDealer, HomeTruckDealerTranslationOptions)
-translator.register(HomeBasePartnersSection, HomeBasePartnersSectionTranslationOptions)
-translator.register(HomeBasePartner, HomeBasePartnerTranslationOptions)
